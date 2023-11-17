@@ -2,6 +2,9 @@
   "name": "nuxt-app",
   "private": true,
   "type": "module",
+  "overrides": {
+    "vue": "latest"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -20,7 +23,10 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
     "axios": "^1.6.2",
-    "daisyui": "^4.1.0"
+    "daisyui": "^4.1.0",
+    "pinia": "^2.1.7",
+    "vue-tradingview-widgets": "^1.2.4"
   }
 }

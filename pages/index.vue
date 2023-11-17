@@ -1,15 +1,20 @@
 <template>
   <div class="bg-slate-950 text-xs h-screen w-screen">
-    <HomeStakeSynthetics></HomeStakeSynthetics>
-    <!-- <TextInput
-      v-model="testdata"
-      label="test"
-      :errors="['helo', 'there']"
-      ></TextInput> -->
+    <!-- <HomeStakeSynthetics></HomeStakeSynthetics>eeeeeeeeeeeeccccccccceeeeeeeeeeee -->
+    <ClientOnly>
+      <ChartsTradingViewWidget></ChartsTradingViewWidget>
+    </ClientOnly>
+
+    <button class="btn btn-primary" @click="symbol = 'BITSTAMP:ETHUSD'">
+      Change sumbol
+    </button>
+
+    {{ symbol }}
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
+const symbol = useTradingviewSymbol();
 
 const testdata = ref("");
 watch(testdata, (newval, oldval) => {
