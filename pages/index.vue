@@ -1,15 +1,20 @@
 <template>
   <div class="bg-slate-950 text-xs h-screen w-screen">
     <!-- <HomeStakeSynthetics></HomeStakeSynthetics>eeeeeeeeeeeeccccccccceeeeeeeeeeee -->
-    <ClientOnly>
+    <!-- <ClientOnly>
       <ChartsTradingViewWidget></ChartsTradingViewWidget>
+    </ClientOnly> -->
+    <ClientOnly>
+
+      <ChartsStockbullChart></ChartsStockbullChart>
     </ClientOnly>
 
+    <!-- 
     <button class="btn btn-primary" @click="symbol = 'BITSTAMP:ETHUSD'">
       Change sumbol
     </button>
 
-    {{ symbol }}
+    {{ symbol }} -->
   </div>
 </template>
 <script setup>
