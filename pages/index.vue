@@ -4,10 +4,12 @@
     <!-- <ClientOnly>
       <ChartsTradingViewWidget></ChartsTradingViewWidget>
     </ClientOnly> -->
-    <ClientOnly>
 
+    <!-- <HomeArbitrageMarkets></HomeArbitrageMarkets> -->
+    <HomeArbitrageOrderBook></HomeArbitrageOrderBook>
+    <!-- <ClientOnly>
       <ChartsStockbullChart></ChartsStockbullChart>
-    </ClientOnly>
+    </ClientOnly> -->
 
     <!-- 
     <button class="btn btn-primary" @click="symbol = 'BITSTAMP:ETHUSD'">

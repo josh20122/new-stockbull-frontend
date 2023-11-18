@@ -26,7 +26,6 @@
     "laravel-echo": "^1.15.3",
     "pinia": "^2.1.7",
     "pusher-js": "^8.3.0",
-    "vue-apexcharts": "^1.6.2",
-    "vue-tradingview-widgets": "^1.2.4"
+    "vue3-apexcharts": "^1.4.4"
   }
 }
