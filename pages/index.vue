@@ -6,7 +6,8 @@
     </ClientOnly> -->
 
     <!-- <HomeArbitrageMarkets></HomeArbitrageMarkets> -->
-    <HomeArbitrageOrderBook></HomeArbitrageOrderBook>
+    <!-- <HomeArbitrageOrderBook></HomeArbitrageOrderBook> -->
+    <HomeArbitrageTradeHistory></HomeArbitrageTradeHistory>
     <!-- <ClientOnly>
       <ChartsStockbullChart></ChartsStockbullChart>
     </ClientOnly> -->
