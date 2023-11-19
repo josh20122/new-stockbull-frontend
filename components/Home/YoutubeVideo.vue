@@ -1,9 +1,9 @@
 <template>
-  <SharedContainer>
-    <div class="border-b py-2 font-semibold text-center border-gray-600">
+  <SharedContainer class="w-full">
+    <div class="border-b py-2 font-semibold text-center w-full border-gray-600">
       Get to know Stockbull better
     </div>
-    <div class="pt-2">
+    <div class="pt-2 w-full flex justify-center">
       <iframe
         class="rounded-lg"
         width="560"

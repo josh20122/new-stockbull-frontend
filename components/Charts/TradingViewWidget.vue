@@ -1,5 +1,5 @@
 <template>
-  <SharedContainer class="w-full h-full">
+  <SharedContainer class="w-full h-full" :padding="false">
     <ClientOnly>
       <Chart
         class="h-full w-full bg-transparent"

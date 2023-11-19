@@ -1,6 +1,6 @@
 <template>
   <SharedContainer class="w-full text-[10px]">
-    <div class="font-semibold pb-4 text-xs">Trade History</div>
+    <div class="font-semibold pb-4 text-xs" v-if="title">Trade History</div>
     <div class="flex px-2 border-y py-1 border-gray-600 justify-between">
       <div>Price</div>
       <div>Quantity</div>
@@ -32,6 +32,11 @@
 <script setup>
 import { ref } from "vue";
 const tradeHistory = ref([]);
+const props = defineProps({
+  title: {
+    default: true,
+  },
+});
 
 onMounted(() => {
   const symbol = "btcusdt";

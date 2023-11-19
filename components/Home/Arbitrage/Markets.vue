@@ -1,5 +1,6 @@
 <template>
   <SharedContainer
+    v-if="!isSmallScreen"
     :style="`height:${screenHeight * 0.5}px`"
     class="overflow-scroll"
   >
@@ -70,10 +71,117 @@
       </div>
     </div>
   </SharedContainer>
+  <transition
+    enter-active-class="duration-300 ease-out"
+    enter-from-class="transform  translate-y-[100%] "
+    enter-to-class="opacity-100 translate-y-[0%]"
+    leave-active-class="duration-200 ease-in"
+    leave-from-class="opacity-100  translate-y-[0%]"
+    leave-to-class="transform   translate-y-[100%] "
+    v-if="isSmallScreen"
+    :padding="false"
+  >
+    <div
+      class="fixed z-50 bg-[#121318] h-screen w-screen overflow-scroll"
+      v-show="props.showModal"
+      :style="`height:${screenHeight * 0.5}px`"
+    >
+      <div>
+        <div
+          class="sticky top-0 bg-[#121318] w-full grid grid-cols-12 content-between items-center"
+        >
+          <div class="relative flex place-items-center col-span-11">
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="search"
+              v-model="search"
+              class="block w-full p-2 ps-10 text-sm rounded-lg focus:ring-0 border border-gray-500 focus:border-gray-500 focus:outline-none bg-transparent"
+              placeholder="Search"
+              required
+            />
+            <div class="absolute right-4">
+              <!-- <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="20"
+                fill="white"
+                class="stroke-2"
+                @click="search = ''"
+              >
+                <path
+                  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+                />
+              </svg> -->
+            </div>
+          </div>
+          <div class="col-span-1 justify-self-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="20"
+              fill="white"
+              class="stroke-2"
+              @click="showModal = false"
+            >
+              <path
+                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="pt-2 overflow-scroll">
+          <div
+            class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
+            :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
+            @click="setActiveKey(index, symbol)"
+            v-for="(symbol, index) in menuSymbols"
+          >
+            <div>{{ symbol.symbol }}</div>
+            <div class="justify-self-end">{{ symbol.price }}USD</div>
+            <div
+              class="justify-self-end col-span-2"
+              :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
+            >
+              {{ symbol.changePercentage }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
 </template>
 <script setup>
 import { reactive, computed } from "vue";
+const props = defineProps({
+  showModal: {
+    default: true,
+  },
+});
 const symbols = reactive({ data: [] });
+const isSmallScreen = computed(() => {
+  return document.documentElement.clientWidth < 768;
+});
+
 const activeKey = ref(10);
 let activeSymbolData = useActiveTradingViewSymbol();
 let tradingViewSymbol = useTradingviewSymbol();

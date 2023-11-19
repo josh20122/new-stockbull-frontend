@@ -1,5 +1,5 @@
 <template>
-  <SharedContainer class="w-full" v-if="activeSymbolData.symbol">
+  <SharedContainer class="w-full">
     <div class="justify-between flex w-full">
       <div class="inline-flex">
         <span>
@@ -30,10 +30,10 @@
       </div>
     </div>
   </SharedContainer>
+
+  <!-- drawer init and toggle -->
 </template>
 <script setup>
 import { ref } from "vue";
-let data = useActiveTradingViewSymbol();
-
-const activeSymbolData = ref(data);
+let activeSymbolData = useActiveTradingViewSymbol();
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-flex w-full md:flex-col gap-x-2 flex-row gap-y-2">
+  <div class="w-full gap-x-2 flex-row gap-y-2 grid grid-cols-2 md:grid-cols-1">
     <button
       class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
     >
