@@ -1,8 +1,8 @@
 <template>
   <!-- <div id="chart"> -->
-  <SharedContainer>
+  <SharedContainer class="w-full h-full" :padding="false">
     <VueApexCharts
-      class="p-0"
+      class="h-full w-full"
       :options="chartData.options"
       :series="[
         { data: chartData.series[0].data }, // series1
@@ -11,7 +11,7 @@
         },
       ]"
       type="area"
-      height="100%"
+      :height="screenHeight * 0.5"
     ></VueApexCharts>
   </SharedContainer>
 
@@ -36,6 +36,11 @@ const initialData = []; // Initial data
 const initialCategories = [];
 const isSmallScreen = () => {
   return window.innerWidth < 768;
+};
+
+const screenHeight = ref(0);
+const setScreenHeight = () => {
+  screenHeight.value = window.screen.height;
 };
 
 const minutes = ref(7);
@@ -82,7 +87,7 @@ let chartData = ref({
       show: false,
     },
     chart: {
-      height: 350,
+      // height: 350,
       type: "area",
       animations: {
         enabled: false,
@@ -181,6 +186,7 @@ const updateChart = (newTime, oldTime) => {
 };
 
 onMounted(() => {
+  setScreenHeight();
   window.Pusher = Pusher;
   const echo = new Echo(runtimeConfig.public.pusher);
 

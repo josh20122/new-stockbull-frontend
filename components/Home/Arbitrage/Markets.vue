@@ -1,8 +1,10 @@
 <template>
-  <SharedContainer>
-    <div class="">
-      <!-- {{ menuSymbols }} -->
-      <div class="">
+  <SharedContainer
+    :style="`height:${screenHeight * 0.5}px`"
+    class="overflow-scroll"
+  >
+    <div>
+      <div class="sticky top-0 bg-[#121318] w-full">
         <div class="relative flex place-items-center">
           <div
             class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
@@ -23,12 +25,11 @@
               />
             </svg>
           </div>
-          <!-- <SharedTextInput v-model="search"></SharedTextInput> -->
           <input
             type="search"
             id="search"
             v-model="search"
-            class="block w-full p-2 ps-10 text-sm border rounded-lg focus:ring-0 focus:outline-0 bg-transparent"
+            class="block w-full p-2 ps-10 text-sm rounded-lg focus:ring-0 border border-gray-500 focus:border-gray-500 focus:outline-none bg-transparent"
             placeholder="Search"
             required
           />
@@ -50,9 +51,11 @@
         </div>
       </div>
 
-      <div class="pt-2">
+      <div class="pt-2 overflow-scroll">
         <div
-          class="py-2 px-1 w-full grid grid-cols-2"
+          class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
+          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
+          @click="setActiveKey(index, symbol)"
           v-for="(symbol, index) in menuSymbols"
         >
           <div>{{ symbol.symbol }}</div>
@@ -71,6 +74,16 @@
 <script setup>
 import { reactive, computed } from "vue";
 const symbols = reactive({ data: [] });
+const activeKey = ref(10);
+let activeSymbolData = useActiveTradingViewSymbol();
+let tradingViewSymbol = useTradingviewSymbol();
+const setActiveKey = (key, item) => {
+  activeKey.value = key;
+  activeSymbolData.value = item;
+  tradingViewSymbol.value = item.symbol;
+  console.log(item);
+};
+
 const search = ref("");
 const allowedSymbols = [
   "BTCUSDT",
@@ -440,6 +453,11 @@ const allowedSymbols = [
   "UTKUSDT",
   "IRISUSDT",
 ];
+const screenHeight = ref(0);
+const setScreenHeight = () => {
+  screenHeight.value = window.screen.height;
+};
+
 const menuSymbols = computed(() => {
   const filteredSymbols = symbols.data.filter((item) =>
     allowedSymbols.includes(item.s)
@@ -449,9 +467,9 @@ const menuSymbols = computed(() => {
     .map((item) => {
       return {
         symbol: item.s,
-        price: item.c.toLocaleString(),
-        changePercentage: item.P.toLocaleString() + "%",
-        change: item.P.toLocaleString(),
+        price: parseFloat(item.c).toLocaleString(),
+        changePercentage: parseFloat(item.P).toLocaleString() + "%",
+        change: item.P,
       };
     })
     .filter((symbol) => symbol.symbol.includes(search.value.toUpperCase()))
@@ -466,11 +484,14 @@ const menuSymbols = computed(() => {
       if (symbolA > symbolB) {
         return 1;
       }
+      1;
       return 0;
     });
 });
 
 onMounted(() => {
+  setScreenHeight();
+
   const binanceSocket = new WebSocket(
     "wss://stream.binance.com:9443/ws/!ticker@arr"
   );

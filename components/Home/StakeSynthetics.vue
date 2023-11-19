@@ -1,6 +1,6 @@
 <template>
   <SharedContainer>
-    <div class="inline-flex flex-col gap-y-10">
+    <div class="inline-flex flex-col gap-y-10 w-full">
       <div class="inline-flex flex-col gap-y-1">
         <SharedTextInput
           label="Stake"

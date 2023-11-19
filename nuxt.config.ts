@@ -3,29 +3,26 @@ import { fileURLToPath } from "url";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  modules: ["nuxt-headlessui"],
+  modules: ["nuxt-headlessui", "@nuxt/image"],
   plugins: [
     // 'plugins/axiosConfigs',
-    { ssr: false, src: 'plugins/axiosConfigs' }
+    { ssr: false, src: "plugins/axiosConfigs" },
   ],
   alias: {
-
-    '@utils': fileURLToPath(new URL(".utils", import.meta.url))
-
-
+    "@utils": fileURLToPath(new URL(".utils", import.meta.url)),
   },
   runtimeConfig: {
     public: {
-      pusher:{
-        broadcaster: 'pusher',
+      pusher: {
+        broadcaster: "pusher",
 
-        key: 'd34d6617f3abb27f0ad9',
-        cluster:'ap2',
-        wsHost:  `ws-${'ap2'}.pusher.com`,
+        key: "d34d6617f3abb27f0ad9",
+        cluster: "ap2",
+        wsHost: `ws-${"ap2"}.pusher.com`,
         wsPort: 80,
         wssPort: 443,
-        forceTLS:   'https',
-        enabledTransports: ['ws', 'wss'],
+        forceTLS: "https",
+        enabledTransports: ["ws", "wss"],
       },
     },
   },
