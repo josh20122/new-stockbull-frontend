@@ -1,6 +1,9 @@
 <template>
   <SharedContainer class="w-full">
-    <div class="justify-between flex w-full">
+    <div
+      class="justify-between flex w-full cursor-pointer"
+      @click="marketsModal = !marketsModal"
+    >
       <div class="inline-flex">
         <span>
           {{ activeSymbolData.symbol }}
@@ -31,9 +34,16 @@
     </div>
   </SharedContainer>
 
+  <HomeArbitrageMarkets :showModal="marketsModal"></HomeArbitrageMarkets>
+
   <!-- drawer init and toggle -->
 </template>
 <script setup>
 import { ref } from "vue";
 let activeSymbolData = useActiveTradingViewSymbol();
+const marketsModal = ref(false);
+
+watch(marketsModal, () => {
+  console.log("changed");
+});
 </script>

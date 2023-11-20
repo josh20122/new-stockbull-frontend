@@ -9,43 +9,38 @@ import { getItem, setItem } from "./localStorage";
 // import { env } from "./env";
 
 export const setAxiosConfigurations = () => {
-
   setItem("activeChart", "november");
-  setItem('activeChartName', 'STockBull index (1f)')
+  setItem("activeChartName", "STockBull index (1f)");
 
-
-  if(!getItem('accountType')){
+  if (!getItem("accountType")) {
     setItem("accountType", "demo");
   }
 
-  if(!getItem('activeChart')){
+  if (!getItem("activeChart")) {
     setItem("activeChart", "november");
-    setItem('activeChartName', 'STockBull index (1f)')
-
+    setItem("activeChartName", "STockBull index (1f)");
   }
-  
 
-  if(getItem('activeChart')=='null' ){
+  if (getItem("activeChart") == "null") {
     setItem("activeChart", "november");
-    setItem('activeChartName', 'STockBull index (1f)')
-  }
-  
-  if(!getItem('activeChartName') || !getItem('activeChartName')=='null'){
-    setItem('activeChartName', 'STockBull index (1f)')
-
+    setItem("activeChartName", "STockBull index (1f)");
   }
 
+  if (!getItem("activeChartName") || !getItem("activeChartName") == "null") {
+    setItem("activeChartName", "STockBull index (1f)");
+  }
 
   axios.defaults.headers.common["activeChart"] =
-  getItem("activeChart") ?? "november";
-
+    getItem("activeChart") ?? "november";
 
   axios.defaults.headers.common["activeAccount"] =
     getItem("accountType") ?? "demo";
   const authToken = getItem("token");
-  axios.defaults.baseURL = 'https:stockbullsecure.com/api';
+  axios.defaults.baseURL = "https:stockbullsecure.com/api";
   axios.defaults.headers.common.Authorization = "Bearer " + authToken;
-  axiosInterceptor();
+  axios.defaults.headers.post["Content-Type"] = "application/json";
+  axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+  // axiosInterceptor();
 };
 
 export const bearerToken = () => {

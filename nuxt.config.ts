@@ -3,9 +3,11 @@ import { fileURLToPath } from "url";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
-  modules: ["nuxt-headlessui", "@nuxt/image"],
+  modules: ["nuxt-headlessui", "@nuxt/image", "@tailvue/nuxt"],
+  ssr: false,
   plugins: [
     // 'plugins/axiosConfigs',
+
     { ssr: false, src: "plugins/axiosConfigs" },
   ],
   alias: {
@@ -13,6 +15,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      baseURL: "https://stockbullsecure.com.com/api",
       pusher: {
         broadcaster: "pusher",
 

@@ -82,11 +82,11 @@
     :padding="false"
   >
     <div
-      class="fixed z-50 bg-[#121318] h-screen w-screen overflow-scroll"
+      class="fixed z-50 bg-[#121318] h-screen w-full flex overflow-scroll"
       v-show="props.showModal"
       :style="`height:${screenHeight * 0.5}px`"
     >
-      <div>
+      <div class="w-full">
         <div
           class="sticky top-0 bg-[#121318] w-full grid grid-cols-12 content-between items-center"
         >
@@ -174,12 +174,12 @@
 import { reactive, computed } from "vue";
 const props = defineProps({
   showModal: {
-    default: true,
+    default: false,
   },
 });
 const symbols = reactive({ data: [] });
 const isSmallScreen = computed(() => {
-  return document.documentElement.clientWidth < 768;
+  return window.document.documentElement.clientWidth < 768;
 });
 
 const activeKey = ref(10);

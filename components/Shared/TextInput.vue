@@ -1,18 +1,18 @@
 <template>
-  <div class="inline-flex flex-col gap-y-1">
+  <div class="inline-flex flex-col">
     <label class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
       {{ label }}
     </label>
     <input
       :id="id"
       :value="modelValue"
-      type="text"
+      :type="type ?? 'text'"
       class="input-sm border text-[10px] border-gray-600 bg-transparent placeholder:text-[12px] text-white shadow-inner shadow-gray-900 rounded-sm focus:outline-none focus:border-indigo-500"
       @input="($event) => emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       :readonly="readonly"
     />
-    <div v-if="errors" class="text-xs text-red-600">
+    <div v-if="errors" class="text-[10px] text-red-600">
       <div v-for="(error, index) in errors" v-text="error" :key="index"></div>
     </div>
 
@@ -30,6 +30,7 @@ defineProps([
   "label",
   "id",
   "placeholder",
+  "type",
   "errors",
   "readonly",
   "hint",
