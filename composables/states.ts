@@ -12,7 +12,7 @@ export const useActiveTradingViewSymbol = () =>
   useState("activeSymbol", () => {
     return {
       symbol: "BTCUSDT",
-      price: 3356639,
-      changePercentage: -26,
+      price: 37340.08,
+      changePercentage: 0.18,
     };
   });

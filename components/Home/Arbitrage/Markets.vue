@@ -61,7 +61,9 @@
           <div class="flex gap-2">
             <div>{{ symbol.symbol }}</div>
           </div>
-          <div class="justify-self-end">{{ symbol.price }}USD</div>
+          <div class="justify-self-end">
+            {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
+          </div>
           <div
             class="justify-self-end col-span-2"
             :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
