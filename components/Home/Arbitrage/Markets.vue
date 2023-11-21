@@ -208,7 +208,7 @@ const handleArbitrageConstants = () => {
 };
 
 const getActiveConstant = computed(() => {
-  return 1;
+  // return 1;
   if (activeMarket.value == "B") {
     if (buy.value) {
       return constant.value.cza2;
