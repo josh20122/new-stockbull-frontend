@@ -21,9 +21,11 @@
         <NuxtLink to="/"> Home </NuxtLink>
         <NuxtLink to="/account"> Account </NuxtLink>
         <div class="text-sm">
-          <NuxtLink to="/auth/login">Log in</NuxtLink> Sign Up<NuxtLink
+          <NuxtLink to="/auth/login">Log in</NuxtLink>/<NuxtLink
             to="/auth/register"
-          ></NuxtLink>
+          >
+            Sign Up</NuxtLink
+          >
         </div>
       </div>
     </div>
