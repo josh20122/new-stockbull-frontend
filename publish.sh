@@ -36,9 +36,9 @@ if [ -n "$ip_address" ]; then
   # SSH into the remote server and execute commands
   sshpass -p "$STOCKBUll_PASSWORD" ssh "root@$ip_address" '
     cd /var/www/frontend
-    # git stash
+    git stash
     git pull
-    npm run build
+  
     npm run generate
     exit
   '
