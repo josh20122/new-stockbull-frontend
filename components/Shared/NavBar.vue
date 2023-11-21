@@ -18,6 +18,7 @@
         </div>
       </div>
       <div class="flex gap-2">
+        <NuxtLink to="/"> Home </NuxtLink>
         <NuxtLink to="/account"> Account </NuxtLink>
         <div class="text-sm">Log in/Sign Up</div>
       </div>

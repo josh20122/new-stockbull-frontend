@@ -43,7 +43,7 @@
       <NuxtLink to="/account/deposit"> Deposit</NuxtLink>
     </div>
 
-    <div class="inline-flex w-full place-items-center gap-x-4 px-2">
+    <!-- <div class="inline-flex w-full place-items-center gap-x-4 px-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -63,6 +63,6 @@
         />
       </svg>
       <NuxtLink to="/account/withdraw"> Withdraw</NuxtLink>
-    </div>
+    </div> -->
   </SharedContainer>
 </template>

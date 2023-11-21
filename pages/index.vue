@@ -11,14 +11,20 @@
             class="flex w-full h-full overflow-hidden gap-2 relative"
             :style="`height:${screenHeight * 0.5}px`"
           >
-            <HomeArbitrageMarkets class="pb-2"></HomeArbitrageMarkets>
+            <HomeArbitrageMarkets
+              :showModal="binanceMarketsModal"
+              v-if="activeMarket != 'C'"
+              @closeModal="binanceMarketsModal = false"
+              class="pb-2"
+            ></HomeArbitrageMarkets>
 
-            <!-- v-if="!isSmallScreen" -->
-
-            <!-- <div class="bg-red-400 w-full h-full"> -->
+            <HomeStockbullMarkets
+              v-if="activeMarket == 'C'"
+              :showModal="binanceMarketsModal"
+              class="pb-2"
+            ></HomeStockbullMarkets>
 
             <ClientOnly>
-              <!-- <ChartsStockbullChart class="h-full"></ChartsStockbullChart> -->
               <SharedContainer class="w-full" :padding="isSmallScreen">
                 <div
                   class="flex gap-x-4 border-b border-gray-500 pb-2"
@@ -39,12 +45,21 @@
                     History
                   </div>
                 </div>
+                <ChartsStockbullChart
+                  v-if="activeMarket == 'C' && chartView"
+                ></ChartsStockbullChart>
+
+                <HomeStockbullBotHistory
+                  v-if="activeMarket == 'C' && !chartView"
+                ></HomeStockbullBotHistory>
                 <ChartsTradingViewWidget
-                  v-if="chartView"
+                  v-if="
+                    chartView && (activeMarket == 'B' || activeMarket == 'A')
+                  "
                 ></ChartsTradingViewWidget>
                 <HomeArbitrageTradeHistory
                   :title="false"
-                  v-if="isSmallScreen && !chartView"
+                  v-if="isSmallScreen && !chartView && activeMarket != 'C'"
                   class="basis-2/4"
                 ></HomeArbitrageTradeHistory>
               </SharedContainer>
@@ -52,11 +67,6 @@
             <!-- </div> -->
           </div>
           <div class="flex gap-2 flex-col md:flex-row">
-            <!-- <HomeArbitrageTradeHistory
-              v-if="isSmallScreen"
-              class="basis-2/4"
-            ></HomeArbitrageTradeHistory> -->
-
             <HomeArbitrageOrderBook
               v-if="isSmallScreen"
               class=""
@@ -87,15 +97,73 @@
       class="fixed bottom-0 py-2 border-t z-50 border-gray-500 w-full px-2 bg-black"
       v-if="isSmallScreen"
     >
-      <AuthGuestButtons></AuthGuestButtons>
+      <AuthGuestButtons v-if="isAuthenticated"></AuthGuestButtons>
+      <SharedModal
+        :showModal="showStakeModal"
+        class=""
+        @close="showArbitrageStakeModal = false"
+      >
+        <div class="inline-flex flex-col gap-y-10 w-full">
+          <HomeStakeSynthetics
+            v-if="activeMarket == 'C'"
+            @cancel="showStakeModal = false"
+          ></HomeStakeSynthetics>
+          <HomeStakeBinanceMarket
+            v-if="activeMarket == 'A'"
+            @cancel="showStakeModal = false"
+          ></HomeStakeBinanceMarket>
+          <HomeStakeStockbullMarket
+            v-if="activeMarket == 'B'"
+            @cancel="showStakeModal = false"
+          ></HomeStakeStockbullMarket>
+
+          <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
+        </div>
+      </SharedModal>
+      <button
+        @click="showStakeModal = true"
+        v-if="activeMarket == 'C'"
+        class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+      >
+        Stake
+      </button>
+
+      <button
+        @click="showStakeModal = true"
+        v-else-if="activeMarket == 'A'"
+        class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+      >
+        BUY
+      </button>
+      <div class="flex w-full gap-2" v-if="activeMarket == 'B'">
+        <div class="w-full">
+          <button
+            @click="showStakeModal = true"
+            class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+          >
+            BUY
+          </button>
+        </div>
+        <div class="w-full">
+          <button
+            @click="showStakeModal = true"
+            class="btn btn-sm w-full hover:outline-yellow-500 hover:border-yellow-500 hover:bg-transparent uppercase rounded-sm outline-yellow-500 bg-transparent border-yellow-500 text-yellow-500 font-medium text-xs"
+          >
+            SELL
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import { ref } from "vue";
+const activeMarket = useMarkets();
+const binanceMarketsModal = ref(true);
 const symbol = useTradingviewSymbol();
+const showStakeModal = ref(false);
 const chartView = ref(true);
-
+const isAuthenticated = useAuthenticated();
 const testdata = ref("");
 const screenHeight = ref(0);
 const screeWidth = ref(0);
@@ -106,6 +174,14 @@ const setScreenHeight = () => {
 };
 const isSmallScreen = computed(() => {
   return document.documentElement.clientWidth < 768;
+});
+
+const showStockbullChart = computed(() => {
+  if (activeMarket == "C" && chartView) {
+    return true;
+  } else {
+    return false;
+  }
 });
 
 onMounted(() => {

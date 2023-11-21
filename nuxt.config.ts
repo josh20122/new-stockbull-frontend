@@ -19,9 +19,9 @@ export default defineNuxtConfig({
       pusher: {
         broadcaster: "pusher",
 
-        key: "d34d6617f3abb27f0ad9",
-        cluster: "ap2",
-        wsHost: `ws-${"ap2"}.pusher.com`,
+        key: "a352914ff522e7a5f37c",
+        cluster: "eu",
+        wsHost: `ws-${"eu"}.pusher.com`,
         wsPort: 80,
         wssPort: 443,
         forceTLS: "https",

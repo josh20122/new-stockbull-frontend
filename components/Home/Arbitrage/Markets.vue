@@ -43,7 +43,6 @@
               class="stroke-2"
               @click="search = ''"
             >
-              viewBox="0 0 16 16" >
               <path
                 d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
               />
@@ -59,7 +58,9 @@
           @click="setActiveKey(index, symbol)"
           v-for="(symbol, index) in menuSymbols"
         >
-          <div>{{ symbol.symbol }}</div>
+          <div class="flex gap-2">
+            <div>{{ symbol.symbol }}</div>
+          </div>
           <div class="justify-self-end">{{ symbol.price }}USD</div>
           <div
             class="justify-self-end col-span-2"
@@ -71,6 +72,7 @@
       </div>
     </div>
   </SharedContainer>
+
   <transition
     enter-active-class="duration-300 ease-out"
     enter-from-class="transform  translate-y-[100%] "
@@ -82,7 +84,7 @@
     :padding="false"
   >
     <div
-      class="fixed z-50 bg-[#121318] h-screen w-full flex overflow-scroll"
+      class="fixed z-50 bg-[#121318] h-screen w-full flex overflow-y-scroll"
       v-show="props.showModal"
       :style="`height:${screenHeight * 0.5}px`"
     >
@@ -118,20 +120,7 @@
               placeholder="Search"
               required
             />
-            <div class="absolute right-4">
-              <!-- <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="20"
-                fill="white"
-                class="stroke-2"
-                @click="search = ''"
-              >
-                <path
-                  d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-                />
-              </svg> -->
-            </div>
+            <div class="absolute right-4"></div>
           </div>
           <div class="col-span-1 justify-self-center">
             <svg
@@ -140,24 +129,46 @@
               height="20"
               fill="white"
               class="stroke-2"
-              @click="showModal = false"
+              @click="$emit('closeModal')"
             >
               <path
                 d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
               />
             </svg>
           </div>
+          <div class="p-2 flex gap-x-3">
+            <div
+              :class="buy || activeMarket == 'A' ? 'bg-yellow-700' : ''"
+              @click="buy = true"
+              class="px-2 cursor-pointer bg-black w-fit text-white rounded-md"
+            >
+              Buy
+            </div>
+
+            <div
+              @click="buy = false"
+              v-if="activeMarket == 'B'"
+              class="px-2 cursor-pointer bg-black rounded-md text-white w-fit"
+              :class="!buy ? 'bg-yellow-700' : ''"
+            >
+              Sell
+            </div>
+          </div>
         </div>
 
-        <div class="pt-2 overflow-scroll">
+        <div class="pt-2">
           <div
             class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
             :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
             @click="setActiveKey(index, symbol)"
             v-for="(symbol, index) in menuSymbols"
           >
-            <div>{{ symbol.symbol }}</div>
-            <div class="justify-self-end">{{ symbol.price }}USD</div>
+            <div class="flex gap-2">
+              <div>{{ symbol.symbol }}</div>
+            </div>
+            <div class="justify-self-end">
+              {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
+            </div>
             <div
               class="justify-self-end col-span-2"
               :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
@@ -171,12 +182,44 @@
   </transition>
 </template>
 <script setup>
+import axios from "axios";
 import { reactive, computed } from "vue";
+import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
 const props = defineProps({
   showModal: {
     default: false,
   },
 });
+
+const constant = ref({
+  cza: 2,
+  cza2: 100000,
+});
+
+const handleArbitrageConstants = () => {
+  setAxiosConfigurations();
+  axios.get("/arbitrage-settings").then((response) => {
+    constant.value = response.data;
+  });
+};
+
+const getActiveConstant = computed(() => {
+  if (activeMarket.value == "B") {
+    if (buy.value) {
+      return constant.value.cza2;
+    } else {
+      return constant.value.cza;
+    }
+  } else {
+    return 1;
+  }
+});
+
+const activeMarket = useMarkets();
+
+const buy = ref(true);
+
+let allSymbols = useSymbols();
 const symbols = reactive({ data: [] });
 const isSmallScreen = computed(() => {
   return window.document.documentElement.clientWidth < 768;
@@ -189,7 +232,7 @@ const setActiveKey = (key, item) => {
   activeKey.value = key;
   activeSymbolData.value = item;
   tradingViewSymbol.value = item.symbol;
-  console.log(item);
+  props.showModal = false;
 };
 
 const search = ref("");
@@ -575,7 +618,7 @@ const menuSymbols = computed(() => {
     .map((item) => {
       return {
         symbol: item.s,
-        price: parseFloat(item.c).toLocaleString(),
+        price: parseFloat(item.c),
         changePercentage: parseFloat(item.P).toLocaleString() + "%",
         change: item.P,
       };
@@ -598,6 +641,7 @@ const menuSymbols = computed(() => {
 });
 
 onMounted(() => {
+  handleArbitrageConstants();
   setScreenHeight();
 
   const binanceSocket = new WebSocket(
@@ -614,6 +658,8 @@ onMounted(() => {
       } else {
         symbols.data.push(element);
       }
+
+      allSymbols.value = symbols.data;
     });
   };
 });
