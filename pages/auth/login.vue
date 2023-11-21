@@ -21,7 +21,7 @@
             @click="submitForm()"
             class="btn btn-secondary text-white btn-sm w-full"
           >
-            Register
+            LOGIN
           </button>
         </div>
       </div>
