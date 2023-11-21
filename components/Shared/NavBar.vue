@@ -20,7 +20,11 @@
       <div class="flex gap-2">
         <NuxtLink to="/"> Home </NuxtLink>
         <NuxtLink to="/account"> Account </NuxtLink>
-        <div class="text-sm">Log in/Sign Up</div>
+        <div class="text-sm">
+          <NuxtLink to="/auth/login">Log in</NuxtLink> Sign Up<NuxtLink
+            to="/auth/register"
+          ></NuxtLink>
+        </div>
       </div>
     </div>
   </SharedContainer>

@@ -194,8 +194,8 @@ const props = defineProps({
 });
 
 const constant = ref({
-  cza: 2,
-  cza2: 100000,
+  cza: 1,
+  cza2: 1,
 });
 
 const handleArbitrageConstants = () => {
@@ -206,6 +206,7 @@ const handleArbitrageConstants = () => {
 };
 
 const getActiveConstant = computed(() => {
+  return 1;
   if (activeMarket.value == "B") {
     if (buy.value) {
       return constant.value.cza2;
