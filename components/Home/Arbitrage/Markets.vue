@@ -200,11 +200,9 @@ const constant = ref({
 
 const handleArbitrageConstants = () => {
   setAxiosConfigurations();
-  axios
-    .get("https://stockbullsecure.com/api/arbitrage-settings")
-    .then((response) => {
-      constant.value = response.data;
-    });
+  axios.get("/arbitrage-settings").then((response) => {
+    constant.value = response.data;
+  });
 };
 
 const getActiveConstant = computed(() => {

@@ -36,7 +36,7 @@ export const setAxiosConfigurations = () => {
   axios.defaults.headers.common["activeAccount"] =
     getItem("accountType") ?? "demo";
   const authToken = getItem("token");
-  axios.defaults.baseURL = "https:stockbullsecure.com/api";
+  axios.defaults.baseURL = "https://stockbullsecure.com/api";
   axios.defaults.headers.common.Authorization = "Bearer " + authToken;
   axios.defaults.headers.post["Content-Type"] = "application/json";
   axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
