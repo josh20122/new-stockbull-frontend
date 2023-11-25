@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="pt-2 overflow-scroll">
+      <div class="pt-2">
         <div
           class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
           :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"

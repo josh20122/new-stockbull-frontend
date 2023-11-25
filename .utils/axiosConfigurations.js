@@ -44,6 +44,7 @@ export const authenticateUser = () => {
     .get("/user")
     .then((response) => {
       // console.log(response.data);
+      console.log(useRoute());
     })
     .catch((err) => {
       console.log(err);
@@ -94,5 +95,18 @@ export const logout = () => {
   localStorage.removeItem("token");
   let isAuthenticated = useAuthenticated();
   isAuthenticated.value = false;
+  let guestRoutes = ["/"];
+
+  const route = useRoute();
+  if (!guestRoutes.includes(route.fullPath)) {
+    navigateTo("/auth/login");
+  }
   // console.log();
+};
+
+export const login = (token) => {
+  localStorage.setItem("token", token);
+  let isAuthenticated = useAuthenticated();
+  isAuthenticated.value = true;
+  setAxiosConfigurations();
 };

@@ -45,7 +45,7 @@
 </template>
 <script setup>
 import axios from "axios";
-import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
+import { login, setAxiosConfigurations } from "~/.utils/axiosConfigurations";
 import { getItem, setItem } from "~/.utils/localStorage";
 const form = ref({
   email: "",
@@ -58,8 +58,7 @@ const submitForm = () => {
   axios
     .post("/login", form.value)
     .then((response) => {
-      setItem("token", response.data);
-      setAxiosConfigurations();
+      login(response.data);
       navigateTo("/");
     })
     .catch((err) => {

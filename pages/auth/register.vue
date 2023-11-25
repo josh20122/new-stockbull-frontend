@@ -137,6 +137,8 @@ const submitForm = () => {
   axios
     .post("/register", form.value)
     .then((response) => {
+      login(response.data);
+
       navigateTo("/");
     })
     .catch((err) => {

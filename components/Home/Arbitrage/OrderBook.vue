@@ -4,10 +4,7 @@
       <div>Price</div>
       <div>Quantity</div>
     </div>
-    <div
-      class="grid font-serif h-screen overflow-scroll"
-      :style="`height:${screenHeight * 0.7}px`"
-    >
+    <div class="grid font-serif" :style="`height:${screenHeight * 0.7}px`">
       <div class="flex flex-col gap-y-1">
         <div
           class="h-6 relative flex"
