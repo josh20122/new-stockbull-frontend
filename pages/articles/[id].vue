@@ -22,32 +22,30 @@
           </div>
         </div>
       </div>
-      <div
-        class="w-full col-span-4 md:flex hidden flex-col gap-y-4 h-screen overflow-y-scroll"
-      >
-        <div class="text-3xl font-semibold">Latest News</div>
-        <NuxtLink v-for="(item, index) in news.data" :to="`/news/${item.id}`">
-          <!-- {{ item }} -->
-
-          <SharedContainer
-            className=" rounded-md overflow-hidden w-full text-xs bg-[#121318]"
-          >
-            <div className="overflow-hidden h-fit rounded-md">
-              <img
-                className=" h-44 w-full hover:scale-105 duration-500 transition-all"
-                :src="item.image"
-                alt=""
-              />
-            </div>
-            <div className=" flex  justify-between px-2 pt-2  pb-4">
-              <div className=" font-semibold">{{ item.title }}</div>
-              <div>
-                <div>{{ item.author }}</div>
-                <div className=" text-blue-600">{{ item.time }}</div>
+      <div class="w-full md:col-span-4 md:flex flex-col gap-y-4 px-2">
+        <div class="text-3xl font-semibold pb-4">New Articles</div>
+        <div class="h-screen overflow-y-scroll">
+          <NuxtLink v-for="(item, index) in news.data" :to="`/news/${item.id}`">
+            <SharedContainer
+              className=" rounded-md overflow-hidden w-full text-xs bg-[#121318]"
+            >
+              <div className="overflow-hidden h-fit rounded-md">
+                <img
+                  className=" h-44 w-full hover:scale-105 duration-500 transition-all"
+                  :src="item.image"
+                  alt=""
+                />
               </div>
-            </div>
-          </SharedContainer>
-        </NuxtLink>
+              <div className=" flex  justify-between px-2 pt-2  pb-4">
+                <div className=" font-semibold">{{ item.title }}</div>
+                <div>
+                  <div>{{ item.author }}</div>
+                  <div className=" text-blue-600">{{ item.time }}</div>
+                </div>
+              </div>
+            </SharedContainer>
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </div>
