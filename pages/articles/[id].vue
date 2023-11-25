@@ -25,7 +25,10 @@
       <div class="w-full md:col-span-4 md:flex flex-col gap-y-4 px-2">
         <div class="text-3xl font-semibold pb-4">New Articles</div>
         <div class="h-screen overflow-y-scroll">
-          <NuxtLink v-for="(item, index) in news.data" :to="`/news/${item.id}`">
+          <NuxtLink
+            v-for="(item, index) in news.data"
+            :to="`/articles/${item.id}`"
+          >
             <SharedContainer
               className=" rounded-md overflow-hidden w-full text-xs bg-[#121318]"
             >
