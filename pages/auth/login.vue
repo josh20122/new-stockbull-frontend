@@ -12,6 +12,7 @@
         <AuthLineTextInput
           v-model="form.email"
           :errors="formErrors.email"
+          @keyup.enter="submitForm()"
           label="Email"
           placeholder=""
         ></AuthLineTextInput>
@@ -20,6 +21,7 @@
           v-model="form.password"
           placeholder=""
           label="Password"
+          @keyup.enter="submitForm()"
           type="password"
           :errors="formErrors.password"
         ></AuthLineTextInput>

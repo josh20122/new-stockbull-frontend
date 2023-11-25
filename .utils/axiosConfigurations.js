@@ -40,15 +40,13 @@ export const setAxiosConfigurations = () => {
 };
 
 export const authenticateUser = () => {
+  let user = useUser();
   axios
     .get("/user")
     .then((response) => {
-      // console.log(response.data);
-      console.log(useRoute());
+      user.value = response.data;
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => {});
 };
 
 export const bearerToken = () => {
@@ -95,7 +93,7 @@ export const logout = () => {
   localStorage.removeItem("token");
   let isAuthenticated = useAuthenticated();
   isAuthenticated.value = false;
-  let guestRoutes = ["/"];
+  let guestRoutes = ["/", "/news"];
 
   const route = useRoute();
   if (!guestRoutes.includes(route.fullPath)) {

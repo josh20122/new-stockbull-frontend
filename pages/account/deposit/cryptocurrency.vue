@@ -1,12 +1,11 @@
 <template>
-  <div
-    class="flex place-items-center min-h-screen justify-center w-full h-full"
-  >
+  <div class="flex place-items-center justify-center w-full pt-6 h-full">
     <SharedContainer class="rounded-md w-full max-w-[400px]">
-      <div class="text-center pb-5">Deposit USDT</div>
+      <div class="text-center pb-5">DEPOSIT CRYPTOCURRENCY</div>
       <div class="flex flex-col gap-y-6">
         <SharedTextInput
           class="  "
+          label="Amount to deposit"
           v-model="form.amount"
           :errors="formErrors.amount"
           placeholder=" Enter amount in USD"
@@ -45,6 +44,6 @@ const submitForm = () => {
 const formErrors = ref({});
 
 const form = ref({
-  amount: 200,
+  amount: 0,
 });
 </script>

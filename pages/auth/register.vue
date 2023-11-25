@@ -15,16 +15,19 @@
           v-model="form.username"
           :errors="formErrors.username"
           label="Username"
+          @keyup.enter="submitForm()"
         >
         </AuthLineTextInput>
         <AuthLineTextInput
           v-model="form.email"
+          @keyup.enter="submitForm()"
           label="Email"
           placeholder=""
           :errors="formErrors.email"
         ></AuthLineTextInput>
         <AuthLineTextInput
           v-model="form.phone_number"
+          @keyup.enter="submitForm()"
           label="Phone Number"
           placeholder=""
           :errors="formErrors.phone_number"
@@ -32,6 +35,7 @@
 
         <AuthLineTextInput
           v-model="form.referral_code"
+          @keyup.enter="submitForm()"
           placeholder=""
           label="Referral Code "
           :errors="formErrors.referral_code"
@@ -40,6 +44,7 @@
         <div class="relative z-0 w-full group md:col-span-2">
           <select
             placeholder=""
+            @keyup.enter="submitForm()"
             id="countries"
             class="block py-2.5 px-0 caret-blue-600 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-gray-900 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             v-model="form.country"
@@ -70,11 +75,13 @@
           v-model="form.password"
           placeholder=""
           :errors="formErrors.password"
+          @keyup.enter="submitForm()"
           label="Password"
         ></AuthLineTextInput>
         <AuthLineTextInput
           v-model="form.password_confirmation"
           placeholder=""
+          @keyup.enter="submitForm()"
           label="Confirm password"
           :errors="formErrors.password_confirmation"
         ></AuthLineTextInput>

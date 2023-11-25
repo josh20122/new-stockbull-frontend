@@ -1,32 +1,38 @@
 <template>
   <SharedContainer class="rounded-md w-full">
-    <div class="pb-6">Recent transaction</div>
-    <div
-      class="flex flex-col gap-y-2"
-      v-for="(item, index) in transactions"
-      :key="index"
-    >
-      <div class="flex justify-between">
-        <div class="flex flex-col">
-          <div class="text-white flex gap-x-3">
-            <div>
-              {{ item.type == 1 ? "Deposit" : "Withdrawal" }}
+    <div class="pb-6">Recent transaction in USD</div>
+    <div class="h-[400px] overflow-y-scroll">
+      <div
+        class="flex flex-col gap-y-2"
+        v-for="(item, index) in transactions"
+        :key="index"
+      >
+        <div class="flex justify-between">
+          <div class="flex flex-col">
+            <div class="text-white flex gap-x-1">
+              <div>
+                {{ item.type == 1 ? "Deposit" : "Withdrawal" }}
+              </div>
+              <div class="flex flex-col justify-center">
+                <div
+                  class="text-[11px] text-white rounded-md text-center px-1"
+                  :style="' background-color:' + getStatus(item.status).color"
+                >
+                  {{ getStatus(item.status).text }}
+                </div>
+              </div>
             </div>
-            <button
-              class="text-[8px] text-white rounded-md text-center px-1"
-              :style="' background-color:' + getStatus(item.status).color"
-            >
-              {{ getStatus(item.status).text }}
-            </button>
+            <div class="text-xs">{{ item.payment_method }}</div>
           </div>
-          <div class="text-xs">{{ item.payment_method }}</div>
+          <div class="flex flex-col">
+            <div class="text-white text-end">
+              {{ parseFloat(item.amount).toFixed(2).toLocaleString() }}
+            </div>
+            <div class="text-xs text-end">{{ item.created_at }}</div>
+          </div>
         </div>
-        <div class="flex flex-col">
-          <div class="text-white">{{ parseFloat(item.amount) }}USD</div>
-          <div class="text-xs text-end">{{ item.created_at }}</div>
-        </div>
+        <hr class="border-gray-500" />
       </div>
-      <hr class="border-gray-500" />
     </div>
   </SharedContainer>
 </template>
@@ -35,11 +41,6 @@ import axios from "axios";
 import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
 
 const transactions = ref([]);
-// const getTransactions = () => {
-//   axios.get("/payments").then((response) => {
-//     console.log(response.data);
-//   });
-// };
 
 const getStatus = (status) => {
   let text = "PENDING";

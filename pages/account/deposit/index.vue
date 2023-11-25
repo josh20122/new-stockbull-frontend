@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4 w-full">
     <NuxtLink to="/account/deposit/cryptocurrency">
       <SharedContainer class="rounded-md w-full">
         <div class="flex place-items-center gap-x-2 w-full">

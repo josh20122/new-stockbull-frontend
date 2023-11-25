@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="flex gap-2 place-items-center">
-        <NuxtLink to="/"> Home </NuxtLink>
+        <NuxtLink to="/"> Trade </NuxtLink>
         <NuxtLink to="/account"> Account </NuxtLink>
         <div v-if="!isAuthenticated">
           <NuxtLink to="/auth/login">Log in</NuxtLink>/<NuxtLink
