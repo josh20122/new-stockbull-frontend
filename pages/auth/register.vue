@@ -1,39 +1,62 @@
 <template>
-  <SharedNavBar></SharedNavBar>
-  <div class="flex w-full h-screen place-items-center px-2 bg-black">
-    <SharedContainer class="w-full mx-auto rounded-md md:max-w-[500px]">
-      <div class="text-center">REGISTER FOR FREE</div>
-
-      <div class="inline-flex w-full gap-2 flex-col">
-        <SharedTextInput
+  <div
+    class="flex flex-col justify-center w-full h-screen place-items-center px-2 bg-white"
+  >
+    <div class="pb-5 text-black text-3xl flex gap-x-3 font-mono font-semibold">
+      <img class="h-8" src="/logo.png" alt="" /> STOCKBULL
+    </div>
+    <SharedContainer
+      class="w-full mx-auto rounded-sm md:max-w-[500px] bg-[#e9f1fe] border border-gray-400 px-6 py-16"
+    >
+      <div class="grid md:grid-cols-2 w-full gap-3 flex-col">
+        <AuthLineTextInput
           class="w-full"
-          placeholder="Username"
+          placeholder=""
           v-model="form.username"
           :errors="formErrors.username"
-        ></SharedTextInput>
-        <SharedTextInput
+          label="Username"
+        >
+        </AuthLineTextInput>
+        <AuthLineTextInput
           v-model="form.email"
-          placeholder="Email"
+          label="Email"
+          placeholder=""
           :errors="formErrors.email"
-        ></SharedTextInput>
-        <SharedTextInput
+        ></AuthLineTextInput>
+        <AuthLineTextInput
           v-model="form.phone_number"
-          placeholder="Phone Number"
+          label="Phone Number"
+          placeholder=""
           :errors="formErrors.phone_number"
-        ></SharedTextInput>
-        <div>
+        ></AuthLineTextInput>
+
+        <AuthLineTextInput
+          v-model="form.referral_code"
+          placeholder=""
+          label="Referral Code "
+          :errors="formErrors.referral_code"
+        ></AuthLineTextInput>
+
+        <div class="relative z-0 w-full group md:col-span-2">
           <select
+            placeholder=""
             id="countries"
+            class="block py-2.5 px-0 caret-blue-600 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-gray-900 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             v-model="form.country"
-            class="input-sm border text-[10px] w-full border-gray-600 bg-transparent placeholder:text-[12px] text-white shadow-inner shadow-gray-900 rounded-sm focus:outline-none focus:border-indigo-500"
           >
-            <option v-for="(item, index) in countries" :value="item.id">
+            <option
+              class="bg-"
+              v-for="(item, index) in countries"
+              :value="item.id"
+            >
               {{ item.name }}
             </option>
-            <!-- <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option> -->
           </select>
+          <label
+            for="floating_password"
+            class="peer-focus:font-medium absolute text-sm text-gray-900 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+            >Country
+          </label>
 
           <div v-if="formErrors.country" class="text-[10px] text-red-600">
             <div
@@ -43,23 +66,49 @@
             ></div>
           </div>
         </div>
-        <SharedTextInput
+        <AuthLineTextInput
           v-model="form.password"
+          placeholder=""
           :errors="formErrors.password"
-          placeholder="Password"
-        ></SharedTextInput>
-        <SharedTextInput
+          label="Password"
+        ></AuthLineTextInput>
+        <AuthLineTextInput
           v-model="form.password_confirmation"
-          placeholder="Confirm password"
+          placeholder=""
+          label="Confirm password"
           :errors="formErrors.password_confirmation"
-        ></SharedTextInput>
-        <div class="pt-4 w-full">
-          <button
-            @click="submitForm()"
-            class="btn btn-secondary text-white btn-sm w-full"
-          >
-            Register
-          </button>
+        ></AuthLineTextInput>
+      </div>
+      <div class="flex items-start pt-4">
+        <div
+          class="flex content-center items-center place-content-center place-items-center h-5"
+        >
+          <input
+            id="remember"
+            type="checkbox"
+            value=""
+            class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+            required
+          />
+        </div>
+        <label for="remember" class="ms-2 text-xs font-medium text-gray-900"
+          >Remember me</label
+        >
+      </div>
+      <div class="pt-4 flex justify-center rounded-sm w-full">
+        <button
+          @click="submitForm()"
+          class="btn btn-secondary text-white btn-sm rounded-sm w-fit"
+        >
+          Sign Up
+        </button>
+      </div>
+      <div class="text-center text-xs pt-4">
+        <div>
+          Already have an account?
+          <span class="text-blue-500">
+            <NuxtLink to="/auth/login"> Sign In </NuxtLink>
+          </span>
         </div>
       </div>
     </SharedContainer>
@@ -67,11 +116,12 @@
 </template>
 <script setup>
 import axios from "axios";
-
+let router = useRoute();
 const form = ref({
-  username: "",
+  username: null,
   email: "",
   phone_number: "",
+  referral_code: router.query.ref,
   country: "",
   password: "",
   password_confirmation: "",
@@ -93,4 +143,8 @@ const submitForm = () => {
       formErrors.value = err.response.data.errors;
     });
 };
+
+definePageMeta({
+  middleware: "guest",
+});
 </script>

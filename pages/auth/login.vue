@@ -1,28 +1,43 @@
 <template>
-  <SharedNavBar></SharedNavBar>
-  <div class="flex w-full h-screen place-items-center px-2 bg-black">
-    <SharedContainer class="w-full mx-auto rounded-md md:max-w-[500px]">
-      <div class="text-center">LOGIN</div>
-      <div class="inline-flex w-full gap-2 flex-col">
-        <SharedTextInput
+  <div
+    class="flex flex-col justify-center w-full h-screen place-items-center px-2 bg-white"
+  >
+    <div class="pb-5 text-black text-3xl flex gap-x-3 font-mono font-semibold">
+      <img class="h-8" src="/logo.png" alt="" /> STOCKBULL
+    </div>
+    <SharedContainer
+      class="w-full mx-auto rounded-sm md:max-w-[500px] bg-[#e9f1fe] border border-gray-400 px-6 py-16"
+    >
+      <div class="grid w-full gap-3 flex-col">
+        <AuthLineTextInput
           v-model="form.email"
           :errors="formErrors.email"
-          placeholder="Email"
-        ></SharedTextInput>
+          label="Email"
+          placeholder=""
+        ></AuthLineTextInput>
 
-        <SharedTextInput
+        <AuthLineTextInput
           v-model="form.password"
-          placeholder="Password"
+          placeholder=""
+          label="Password"
           type="password"
           :errors="formErrors.password"
-        ></SharedTextInput>
-        <div class="pt-4 w-full">
-          <button
-            @click="submitForm()"
-            class="btn btn-secondary text-white btn-sm w-full"
-          >
-            LOGIN
-          </button>
+        ></AuthLineTextInput>
+      </div>
+      <div class="pt-4 flex justify-center rounded-sm w-full">
+        <button
+          @click="submitForm()"
+          class="btn btn-secondary text-white btn-sm rounded-sm w-fit"
+        >
+          Sign In
+        </button>
+      </div>
+      <div class="text-center text-xs pt-4">
+        <div>
+          Already have an account?
+          <span class="text-blue-500">
+            <NuxtLink to="/auth/register"> Sign Up </NuxtLink>
+          </span>
         </div>
       </div>
     </SharedContainer>
@@ -51,4 +66,8 @@ const submitForm = () => {
       formErrors.value = err.response.data;
     });
 };
+
+definePageMeta({
+  middleware: "guest",
+});
 </script>

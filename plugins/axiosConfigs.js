@@ -1,11 +1,12 @@
+import axios from "axios";
+import {
+  authenticateUser,
+  setAxiosConfigurations,
+} from "../.utils/axiosConfigurations";
 
-import { setAxiosConfigurations } from '../.utils/axiosConfigurations';
-
-export default defineNuxtPlugin(nuxtApp => {
-    
-onNuxtReady(() => {
-  setAxiosConfigurations();
-  })
-    // setAxiosConfigurations()
-    // Doing something with nuxtApp
-  })
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.hook("app:beforeMount", () => {
+    setAxiosConfigurations();
+    authenticateUser();
+  });
+});

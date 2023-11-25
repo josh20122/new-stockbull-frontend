@@ -48,7 +48,6 @@
         <button
           class="btn btn-sm uppercase rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
         >
-          {{}}
           Buy
         </button>
 
@@ -59,8 +58,6 @@
           CANCEL
         </button>
       </div>
-
-      <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
     </div>
   </SharedContainer>
 </template>

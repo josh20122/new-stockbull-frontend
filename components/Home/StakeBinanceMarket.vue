@@ -40,8 +40,6 @@
           CANCEL
         </button>
       </div>
-
-      <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
     </div>
   </SharedContainer>
 </template>

@@ -1,5 +1,5 @@
 export const useTradingviewSymbol = () => useState("symbol", () => "BTCUSD");
-export const useAuthenticated = () => useState("isAuthenticated", () => false);
+export const useAuthenticated = () => useState("isAuthenticated", () => true);
 export const useMarkets = () => useState("market", () => "A");
 export const useSymbols = () => useState("useSymbols", () => []);
 export const useStockbullBotHistory = () =>

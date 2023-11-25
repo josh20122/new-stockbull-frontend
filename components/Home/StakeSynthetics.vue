@@ -34,15 +34,13 @@
           CANCEL
         </button>
       </div>
-
-      <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
     </div>
   </SharedContainer>
 </template>
 
 <script setup>
 import { ref, watch } from "vue";
-
+const isAuthenticated = useAuthenticated();
 const stake = ref(10);
 const target = ref(10 * 3);
 watch(stake, (newval, oldval) => {

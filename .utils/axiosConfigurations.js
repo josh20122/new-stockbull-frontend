@@ -1,12 +1,6 @@
 import axios from "axios";
-// import {
-//   RegisterStoreActions,
-//   RegisterStore,
-//   AccountsModalActions,
-// } from "./store";
-// import { useStoreState } from "pullstate";
 import { getItem, setItem } from "./localStorage";
-// import { env } from "./env";
+import { Container } from "postcss";
 
 export const setAxiosConfigurations = () => {
   setItem("activeChart", "november");
@@ -33,14 +27,27 @@ export const setAxiosConfigurations = () => {
   axios.defaults.headers.common["activeChart"] =
     getItem("activeChart") ?? "november";
 
+  let env = useRuntimeConfig();
+
   axios.defaults.headers.common["activeAccount"] =
     getItem("accountType") ?? "demo";
   const authToken = getItem("token");
-  axios.defaults.baseURL = "https://stockbullsecure.com/api";
+  axios.defaults.baseURL = env.public.baseURL;
   axios.defaults.headers.common.Authorization = "Bearer " + authToken;
   axios.defaults.headers.post["Content-Type"] = "application/json";
   axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-  // axiosInterceptor();
+  axiosInterceptor();
+};
+
+export const authenticateUser = () => {
+  axios
+    .get("/user")
+    .then((response) => {
+      // console.log(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const bearerToken = () => {
@@ -55,34 +62,37 @@ export const updateAccountType = () => {
   try {
     axios.defaults.headers.common["activeAccount"] = getItem("accountType");
   } catch (error) {
-    console.error(error);
+    // console.error(error);
   }
 };
 
 export const axiosInterceptor = () => {
   axios.interceptors.request.use(
     function (config) {
-      // Do something before request is sent
       return config;
     },
     function (error) {
-      // Do something with request error
       return Promise.reject(error);
     }
   );
 
   axios.interceptors.response.use(
     function (response) {
-      // Any status code that lie within the range of 2xx cause this function to trigger
-      // Do something with response data
       return response;
     },
     function (error) {
       if (error.response.status == 401) {
-        // AccountsModalActions.logout();
-        // return "Unauthorized";
+        logout();
       }
+
       return Promise.reject(error);
     }
   );
+};
+
+export const logout = () => {
+  localStorage.removeItem("token");
+  let isAuthenticated = useAuthenticated();
+  isAuthenticated.value = false;
+  // console.log();
 };

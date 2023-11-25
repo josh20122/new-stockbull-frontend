@@ -85,10 +85,23 @@
               v-if="!isSmallScreen"
               class="basis-2/4"
             ></HomeArbitrageOrderBook>
-            <HomeStakeSynthetics
-              v-if="!isSmallScreen"
-              class="basis-2/4"
-            ></HomeStakeSynthetics>
+            <SharedContainer :padding="false">
+              <HomeStakeSynthetics
+                v-if="activeMarket == 'C'"
+                @cancel="showStakeModal = false"
+              ></HomeStakeSynthetics>
+              <HomeStakeBinanceMarket
+                v-if="activeMarket == 'A'"
+                @cancel="showStakeModal = false"
+              ></HomeStakeBinanceMarket>
+              <HomeStakeStockbullMarket
+                v-if="activeMarket == 'B'"
+                @cancel="showStakeModal = false"
+              ></HomeStakeStockbullMarket>
+              <div class="px-2 pt-4">
+                <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
+              </div>
+            </SharedContainer>
           </div>
         </div>
       </div>
@@ -97,7 +110,7 @@
       class="fixed bottom-0 py-2 border-t z-50 border-gray-500 w-full px-2 bg-black"
       v-if="isSmallScreen"
     >
-      <AuthGuestButtons v-if="isAuthenticated"></AuthGuestButtons>
+      <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
       <SharedModal
         :showModal="showStakeModal"
         class=""
@@ -120,37 +133,39 @@
           <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
         </div>
       </SharedModal>
-      <button
-        @click="showStakeModal = true"
-        v-if="activeMarket == 'C'"
-        class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-      >
-        Stake
-      </button>
+      <div class="w-full" v-if="isAuthenticated">
+        <button
+          @click="showStakeModal = true"
+          v-if="activeMarket == 'C'"
+          class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+        >
+          Stake
+        </button>
 
-      <button
-        @click="showStakeModal = true"
-        v-else-if="activeMarket == 'A'"
-        class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-      >
-        BUY
-      </button>
-      <div class="flex w-full gap-2" v-if="activeMarket == 'B'">
-        <div class="w-full">
-          <button
-            @click="showStakeModal = true"
-            class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-          >
-            BUY
-          </button>
-        </div>
-        <div class="w-full">
-          <button
-            @click="showStakeModal = true"
-            class="btn btn-sm w-full hover:outline-yellow-500 hover:border-yellow-500 hover:bg-transparent uppercase rounded-sm outline-yellow-500 bg-transparent border-yellow-500 text-yellow-500 font-medium text-xs"
-          >
-            SELL
-          </button>
+        <button
+          @click="showStakeModal = true"
+          v-else-if="activeMarket == 'A'"
+          class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+        >
+          BUY
+        </button>
+        <div class="flex w-full gap-2" v-if="activeMarket == 'B'">
+          <div class="w-full">
+            <button
+              @click="showStakeModal = true"
+              class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
+            >
+              BUY
+            </button>
+          </div>
+          <div class="w-full">
+            <button
+              @click="showStakeModal = true"
+              class="btn btn-sm w-full hover:outline-yellow-500 hover:border-yellow-500 hover:bg-transparent uppercase rounded-sm outline-yellow-500 bg-transparent border-yellow-500 text-yellow-500 font-medium text-xs"
+            >
+              SELL
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -175,7 +190,6 @@ const setScreenHeight = () => {
 const isSmallScreen = computed(() => {
   return document.documentElement.clientWidth < 768;
 });
-
 const showStockbullChart = computed(() => {
   if (activeMarket == "C" && chartView) {
     return true;
