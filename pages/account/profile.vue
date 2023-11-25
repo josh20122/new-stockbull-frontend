@@ -25,12 +25,16 @@
             label="Phone Number"
             :errors="userProfileFormErrors.phone_number"
           ></SharedTextInput>
-          <button
-            class="btn btn-primary bg-yellow-600 btn-sm w-fit"
-            @click="updateUserProfile()"
-          >
-            UPDATE PROFILE
-          </button>
+
+          <div>
+            <UButton
+              @click="updateUserProfile()"
+              color="yellow"
+              class="text-white text-center rounded-md"
+            >
+              UPDATE PROFILE
+            </UButton>
+          </div>
         </SharedContainer>
       </div>
       <div class="w-full">
@@ -58,12 +62,15 @@
             :errors="passwordErrors.password_confirmation"
           ></SharedTextInput>
 
-          <button
-            @click="updatePassword()"
-            class="btn btn-primary bg-yellow-600 btn-sm w-fit"
-          >
-            Change Password
-          </button>
+          <div>
+            <UButton
+              @click="updatePassword()"
+              color="yellow"
+              class="text-white text-center rounded-md"
+            >
+              Change Password
+            </UButton>
+          </div>
         </SharedContainer>
       </div>
     </div>
@@ -92,6 +99,12 @@ const updateUserProfile = () => {
     .post("/update-profile", userProfile.value)
     .then((response) => {
       authenticateUser();
+      userProfileFormErrors.value = {};
+      toast.add({
+        title: "Profile updated successfully.",
+        timeout: 3000,
+        id: "1",
+      });
     })
     .catch((err) => {
       if (err.response.status == 422) {
@@ -103,7 +116,13 @@ const updateUserProfile = () => {
 const updatePassword = () => {
   axios
     .post("/auth/change-password", userProfile.value)
-    .then((response) => {})
+    .then((response) => {
+      toast.add({
+        title: "Password changed successfully.",
+        timeout: 3000,
+        id: "1",
+      });
+    })
     .catch((err) => {
       if (err.response.status == 422) {
         passwordErrors.value = err.response.data;

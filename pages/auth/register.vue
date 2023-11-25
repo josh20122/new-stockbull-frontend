@@ -103,14 +103,17 @@
         >
       </div>
       <div class="pt-4 flex justify-center rounded-sm w-full">
-        <button
+        <UButton
+          color="yellow"
+          block
+          variant="solid"
+          class="text-white rounded-xs"
           @click="submitForm()"
-          class="btn btn-secondary text-white btn-sm rounded-sm w-fit"
         >
-          Sign Up
-        </button>
+          Sign In
+        </UButton>
       </div>
-      <div class="text-center text-xs pt-4">
+      <div class="text-center text-xs text-gray-800 pt-4">
         <div>
           Already have an account?
           <span class="text-blue-500">

@@ -4,13 +4,13 @@
       <div
         class="inline-flex place-items-center font-bold text-lg uppercase gap-x-2"
       >
-        <NuxtImg
+        <!-- <NuxtImg
           src="/logo.jpg"
           format="webp"
           width="20"
           height="20"
           class="rounded-full"
-        ></NuxtImg>
+        ></NuxtImg> -->
         <div>
           <span class="text-white">STOck</span>
           <span class="text-white">Bull</span>

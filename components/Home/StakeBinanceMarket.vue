@@ -3,15 +3,13 @@
     <div class="inline-flex flex-col gap-y-10 w-full">
       <div class="inline-flex flex-col gap-y-1">
         <label for="" class="text-xs">Symbol</label>
-        <select
+        <USelect
           id="countries"
+          :options="symbols"
+          option-attribute="s"
+          value-attribute="s"
           v-model="form.symbol"
-          class="input-sm border text-[10px] w-full border-gray-600 bg-transparent placeholder:text-[12px] text-white shadow-inner shadow-gray-900 rounded-sm focus:outline-none focus:border-indigo-500"
-        >
-          <option v-for="(item, index) in symbols" :value="item.s">
-            {{ item.s }}
-          </option>
-        </select>
+        />
 
         <SharedTextInput
           label="Amount to buy"

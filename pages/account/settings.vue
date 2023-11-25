@@ -12,16 +12,10 @@
               <div>Automated withdrawals</div>
               <div>
                 <span class="text-sm font-semibold text-blue-600">
-                  <input
-                    class="toggle toggle-sm disabled:bg-gray-400"
-                    type="checkbox"
+                  <UToggle
+                    on-icon="i-heroicons-check-20-solid"
+                    off-icon="i-heroicons-x-mark-20-solid"
                     v-model="form.automated_withdrawals"
-                    name="automated_withdrawals"
-                    :class="
-                      form.automated_withdrawals
-                        ? 'bg-yellow-600 border-yellow-600'
-                        : 'bg-gray-400'
-                    "
                   />
                 </span>
               </div>
@@ -69,16 +63,10 @@
               <div>Instant referral earnings</div>
               <div>
                 <span class="text-sm font-semibold text-blue-600">
-                  <input
-                    class="toggle toggle-sm disabled:bg-gray-400"
-                    type="checkbox"
+                  <UToggle
+                    on-icon="i-heroicons-check-20-solid"
+                    off-icon="i-heroicons-x-mark-20-solid"
                     v-model="form.pay_referrals_instantly"
-                    name="pay_referrals_instantly"
-                    :class="
-                      form.pay_referrals_instantly
-                        ? 'bg-yellow-600 border-yellow-600'
-                        : 'bg-gray-400'
-                    "
                   />
                 </span>
               </div>
@@ -96,6 +84,7 @@ definePageMeta({
   layout: "account",
 });
 const form = ref({});
+const toast = useToast();
 
 const getUserSettings = () => {
   axios
@@ -108,7 +97,11 @@ const getUserSettings = () => {
 
 const updateUserChanges = () => {
   axios.post("/update-user-settings", form.value).then((response) => {
-    console.log("UPDATED");
+    toast.add({
+      title: "Settings updated successfully",
+      timeout: 3000,
+      id: "adding",
+    });
   });
 };
 

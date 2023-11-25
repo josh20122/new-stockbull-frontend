@@ -3,11 +3,10 @@
     <label class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
       {{ label }}
     </label>
-    <input
+    <UInput
       :id="id"
       :value="modelValue"
       :type="type ?? 'text'"
-      class="input-sm border text-[10px] border-gray-600 bg-transparent placeholder:text-[12px] text-white shadow-inner shadow-gray-900 rounded-sm focus:outline-none focus:border-indigo-500"
       @input="($event) => emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       :readonly="readonly"

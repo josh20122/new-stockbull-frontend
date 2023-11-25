@@ -1,8 +1,8 @@
 <template>
-  <div class="flex place-items-center justify-center w-full pt-6 h-full">
-    <SharedContainer class="rounded-md w-full max-w-[400px]">
-      <div class="text-center pb-5">DEPOSIT CRYPTOCURRENCY</div>
-      <div class="flex flex-col gap-y-6">
+  <div class="flex place-items-center justify-center h-full">
+    <SharedContainer class="rounded-md w-full">
+      <div class="text-center pb-5">WITHDRAW CRYPTOCURRENCY</div>
+      <div class="flex flex-col gap-y-2">
         <SharedTextInput
           class="  "
           label="Amount to deposit"
@@ -10,15 +10,22 @@
           :errors="formErrors.amount"
           placeholder=" Enter amount in USD"
         ></SharedTextInput>
+        <SharedTextInput
+          class="  "
+          label="Phone number"
+          v-model="form.phone"
+          :errors="formErrors.phone"
+          placeholder=" Enter phone number"
+        ></SharedTextInput>
 
-        <div>
+        <div class="pt-6">
           <UButton
             @click="submitForm()"
             color="yellow"
             block
-            class="text-white text-center rounded-md"
+            class="text-white text-center rounded-md uppercase"
           >
-            Deposit
+            withdraw
           </UButton>
         </div>
       </div>
@@ -33,12 +40,13 @@ definePageMeta({
   layout: "account",
 });
 
+const route = useRoute();
+
 const submitForm = () => {
   axios
-    .post("/deposit", form.value)
+    .post("/withdraw", form.value)
     .then((response) => {
-      // Open a new tab with the specified link
-      window.open(response.data, "_blank");
+      formErrors.value = {};
     })
     .catch((err) => {
       formErrors.value = err.response.data;
@@ -49,5 +57,10 @@ const formErrors = ref({});
 
 const form = ref({
   amount: 0,
+  wallet: "",
+  isAgent: true,
+  agent: route.params.id,
+  submit: false,
+  phone: null,
 });
 </script>

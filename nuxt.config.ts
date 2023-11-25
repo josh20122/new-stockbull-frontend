@@ -1,10 +1,10 @@
 import { fileURLToPath } from "url";
-
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
-  modules: ["nuxt-headlessui", "@nuxt/image", "@tailvue/nuxt"],
+  // css: ["~/assets/css/main.css"],
+  modules: ["@nuxt/ui"],
   ssr: false,
+
   plugins: [{ ssr: false, src: "plugins/axiosConfigs" }],
   alias: {
     "@utils": fileURLToPath(new URL(".utils", import.meta.url)),
@@ -25,10 +25,10 @@ export default defineNuxtConfig({
       },
     },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //     autoprefixer: {},
+  //   },
+  // },
 });
