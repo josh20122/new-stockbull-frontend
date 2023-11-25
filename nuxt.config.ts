@@ -5,11 +5,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   modules: ["nuxt-headlessui", "@nuxt/image", "@tailvue/nuxt"],
   ssr: false,
-  plugins: [
-    // 'plugins/axiosConfigs',
-
-    { ssr: false, src: "plugins/axiosConfigs" },
-  ],
+  plugins: [{ ssr: false, src: "plugins/axiosConfigs" }],
   alias: {
     "@utils": fileURLToPath(new URL(".utils", import.meta.url)),
   },
