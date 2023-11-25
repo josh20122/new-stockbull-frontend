@@ -85,7 +85,7 @@
               v-if="!isSmallScreen"
               class="basis-2/4"
             ></HomeArbitrageOrderBook>
-            <SharedContainer :padding="false">
+            <SharedContainer :padding="false" v-if="!isSmallScreen">
               <HomeStakeSynthetics
                 v-if="activeMarket == 'C'"
                 @cancel="showStakeModal = false"
@@ -113,7 +113,6 @@
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
       <SharedModal
         :showModal="showStakeModal"
-        class=""
         @close="showArbitrageStakeModal = false"
       >
         <div class="inline-flex flex-col gap-y-10 w-full">
