@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui"],
   ssr: false,
   colorMode: {
-    preferences: "dark",
+    preference: "dark",
   },
   plugins: [{ ssr: false, src: "plugins/axiosConfigs" }],
   alias: {
@@ -27,10 +27,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  // postcss: {
-  //   plugins: {
-  //     tailwindcss: {},
-  //     autoprefixer: {},
-  //   },
-  // },
 });
