@@ -34,8 +34,6 @@
     </div>
     <div>
       <div>
-        <UButton label="Open" @click="isOpen = true" />
-
         <UModal v-model="isOpen">
           <UCard
             :ui="{

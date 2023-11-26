@@ -39,9 +39,6 @@
       />
     </svg>
   </div>
-
-  <!-- {{ chartData.options }} -->
-  <!-- </div> -->
 </template>
 
 <script setup>
