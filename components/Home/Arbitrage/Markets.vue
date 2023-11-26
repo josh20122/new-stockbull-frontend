@@ -1,54 +1,30 @@
 <template>
   <SharedContainer
-    v-if="!isSmallScreen"
+    v-if="!isSmallScreen && !doNotShow"
     :style="`height:${screenHeight * 0.5}px`"
     class="overflow-scroll"
   >
     <div>
       <div class="sticky top-0 bg-[#121318] w-full">
-        <div class="relative flex place-items-center">
-          <div
-            class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-          >
-            <svg
-              class="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            id="search"
-            v-model="search"
-            class="block w-full p-2 ps-10 text-sm rounded-lg focus:ring-0 border border-gray-500 focus:border-gray-500 focus:outline-none bg-transparent"
-            placeholder="Search"
-            required
-          />
-          <div class="absolute right-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="20"
-              fill="white"
-              class="stroke-2"
+        <UInput
+          v-model="search"
+          name="search"
+          placeholder="Search..."
+          icon="i-heroicons-magnifying-glass-20-solid"
+          autocomplete="off"
+          :ui="{ icon: { trailing: { pointer: '' } } }"
+        >
+          <template #trailing>
+            <UButton
+              v-show="search !== ''"
+              color="gray"
+              variant="link"
+              icon="i-heroicons-x-mark-20-solid"
+              :padded="false"
               @click="search = ''"
-            >
-              <path
-                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-              />
-            </svg>
-          </div>
-        </div>
+            />
+          </template>
+        </UInput>
       </div>
 
       <div class="pt-2">
@@ -75,127 +51,116 @@
     </div>
   </SharedContainer>
 
-  <transition
-    enter-active-class="duration-300 ease-out"
-    enter-from-class="transform  translate-y-[100%] "
-    enter-to-class="opacity-100 translate-y-[0%]"
-    leave-active-class="duration-200 ease-in"
-    leave-from-class="opacity-100  translate-y-[0%]"
-    leave-to-class="transform   translate-y-[100%] "
-    v-if="isSmallScreen"
-    :padding="false"
-  >
-    <div
-      class="fixed z-50 bg-[#121318] h-screen w-full flex overflow-y-scroll"
-      v-show="props.showModal"
-      :style="`height:${screenHeight * 0.5}px`"
+  <USlideover v-model="modalIsOpen" v-if="isSmallScreen">
+    <UCard
+      class="flex flex-col flex-1"
+      :ui="{
+        body: { base: 'flex-1' },
+        ring: '',
+        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+      }"
     >
-      <div class="w-full">
-        <div
-          class="sticky top-0 bg-[#121318] w-full grid grid-cols-12 content-between items-center"
+      <template #header>
+        <UInput
+          v-model="search"
+          name="q"
+          placeholder="Search..."
+          icon="i-heroicons-magnifying-glass-20-solid"
+          autocomplete="off"
+          :ui="{ icon: { trailing: { pointer: '' } } }"
         >
-          <div class="relative flex place-items-center col-span-11">
-            <div
-              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-            >
-              <svg
-                class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-            <input
-              type="search"
-              id="search"
-              v-model="search"
-              class="block w-full p-2 ps-10 text-sm rounded-lg focus:ring-0 border border-gray-500 focus:border-gray-500 focus:outline-none bg-transparent"
-              placeholder="Search"
-              required
+          <template #trailing>
+            <UButton
+              v-show="search !== ''"
+              color="gray"
+              variant="link"
+              icon="i-heroicons-x-mark-20-solid"
+              :padded="false"
+              @click="search = ''"
             />
-            <div class="absolute right-4"></div>
+          </template>
+        </UInput>
+        <div class="flex pt-2 gap-x-3">
+          <div
+            :class="buy || activeMarket == 'A' ? 'bg-yellow-700' : ''"
+            @click="buy = true"
+            class="px-2 cursor-pointer bg-black w-fit text-white rounded-md"
+          >
+            Buy
           </div>
-          <div class="col-span-1 justify-self-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="20"
-              fill="white"
-              class="stroke-2"
-              @click="$emit('closeModal')"
-            >
-              <path
-                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"
-              />
-            </svg>
-          </div>
-          <div class="p-2 flex gap-x-3">
-            <div
-              :class="buy || activeMarket == 'A' ? 'bg-yellow-700' : ''"
-              @click="buy = true"
-              class="px-2 cursor-pointer bg-black w-fit text-white rounded-md"
-            >
-              Buy
-            </div>
 
-            <div
-              @click="buy = false"
-              v-if="activeMarket == 'B'"
-              class="px-2 cursor-pointer bg-black rounded-md text-white w-fit"
-              :class="!buy ? 'bg-yellow-700' : ''"
-            >
-              Sell
-            </div>
+          <div
+            @click="buy = false"
+            v-if="activeMarket == 'B'"
+            class="px-2 cursor-pointer bg-black rounded-md text-white w-fit"
+            :class="!buy ? 'bg-yellow-700' : ''"
+          >
+            Sell
           </div>
         </div>
+      </template>
 
-        <div class="pt-2">
+      <div class="pt-2 py-20 max-h-screen overflow-scroll">
+        <div
+          class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
+          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
+          @click="setActiveKey(index, symbol)"
+          v-for="(symbol, index) in menuSymbols"
+        >
+          <div class="flex gap-2">
+            <div>{{ symbol.symbol }}</div>
+          </div>
+          <div class="justify-self-end">
+            {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
+          </div>
           <div
-            class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
-            :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
-            @click="setActiveKey(index, symbol)"
-            v-for="(symbol, index) in menuSymbols"
+            class="justify-self-end col-span-2"
+            :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
           >
-            <div class="flex gap-2">
-              <div>{{ symbol.symbol }}</div>
-            </div>
-            <div class="justify-self-end">
-              {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
-            </div>
-            <div
-              class="justify-self-end col-span-2"
-              :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
-            >
-              {{ symbol.changePercentage }}
-            </div>
+            {{ symbol.changePercentage }}
           </div>
         </div>
       </div>
-    </div>
-  </transition>
+    </UCard>
+  </USlideover>
+  <!-- {{ showModal }} -->
 </template>
 <script setup>
 import axios from "axios";
-import { reactive, computed } from "vue";
+import { reactive, computed, watch, defineEmits } from "vue";
 import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
+const emit = defineEmits("closeModal");
 const props = defineProps({
   showModal: {
+    default: true,
+  },
+  doNotShow: {
     default: false,
   },
+});
+
+const modalIsOpen = ref(props.showModal);
+
+watch(
+  () => props.showModal,
+  (newValue) => {
+    modalIsOpen.value = newValue;
+  }
+);
+
+watch(modalIsOpen, (newValue) => {
+  if (newValue == false) {
+    emit("closeModal");
+  }
 });
 
 const constant = ref({
   cza: 1,
   cza2: 1,
+});
+
+const setTheValues = computed(() => {
+  props.showModal.valueOf;
 });
 
 const handleArbitrageConstants = () => {

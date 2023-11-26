@@ -3,14 +3,14 @@
     <div class="flex gap-2">
       <SharedContainer
         class="w-full flex flex-col cursor-pointer select-none"
-        @click="activeMarket = 'A'"
+        @click="setActiveMarket('A')"
         :class="activeMarket == 'A' ? 'bg-yellow-700 text-white' : ''"
       >
         <div>Market A</div>
         <div>Binance Market</div>
       </SharedContainer>
       <SharedContainer
-        @click="activeMarket = 'B'"
+        @click="setActiveMarket('B')"
         :class="activeMarket == 'B' ? 'bg-yellow-700 text-white' : ''"
         class="w-full flex flex-col cursor-pointer select-none"
       >
@@ -19,7 +19,7 @@
       </SharedContainer>
       <SharedContainer
         :class="activeMarket == 'C' ? 'bg-yellow-700 text-white' : ''"
-        @click="activeMarket = 'C'"
+        @click="setActiveMarket('C')"
         class="w-full flex flex-col cursor-pointer select-none"
       >
         <div>Market C</div>
@@ -61,11 +61,19 @@
         </div>
       </div>
     </SharedContainer>
-
     <HomeArbitrageMarkets
-      v-if="isSmallScreen()"
       :showModal="marketsModal"
+      v-if="activeMarket != 'C'"
+      :doNotShow="true"
+      @closeModal="marketsModal = false"
     ></HomeArbitrageMarkets>
+
+    <HomeStockbullMarkets
+      :showModal="marketsModal"
+      v-if="activeMarket == 'C'"
+      :doNotShow="true"
+      @closeModal="marketsModal = false"
+    ></HomeStockbullMarkets>
   </div>
   <!-- drawer init and toggle -->
 </template>
@@ -74,11 +82,12 @@ import { ref } from "vue";
 let activeSymbolData = useActiveTradingViewSymbol();
 const marketsModal = ref(false);
 const activeMarket = useMarkets();
+
+const setActiveMarket = (value) => {
+  console.log(value);
+  activeMarket.value = value;
+};
 const isSmallScreen = () => {
   return window.innerWidth < 768;
 };
-
-watch(marketsModal, () => {
-  console.log("changed");
-});
 </script>

@@ -12,7 +12,7 @@
             :style="`height:${screenHeight * 0.5}px`"
           >
             <HomeArbitrageMarkets
-              :showModal="binanceMarketsModal"
+              :showModal="false"
               v-if="activeMarket != 'C'"
               @closeModal="binanceMarketsModal = false"
               class="pb-2"
@@ -111,7 +111,7 @@
       v-if="isSmallScreen"
     >
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
-      <SharedModal
+      <!-- <SharedModal
         :showModal="showStakeModal"
         @close="showArbitrageStakeModal = false"
       >
@@ -131,7 +131,7 @@
 
           <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
         </div>
-      </SharedModal>
+      </SharedModal> -->
       <div class="w-full" v-if="isAuthenticated">
         <button
           @click="showStakeModal = true"

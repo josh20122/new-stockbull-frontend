@@ -12,7 +12,7 @@
       leave-from-class="opacity-100 translate-y-[0%]"
       leave-to-class="transform   -translate-y-[100%] "
     >
-      <SharedContainer class="w-fit h-fit rounded-md" v-show="showModal"
+      <SharedContainer class="w-fit h-fit rounded-md" v-show="props.showModal"
         ><slot></slot
       ></SharedContainer>
     </Transition>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-defineProps(["showModal"]);
+const props = defineProps(["showModal"]);
 const emits = defineEmits("close");
 
 onMounted(() => {
