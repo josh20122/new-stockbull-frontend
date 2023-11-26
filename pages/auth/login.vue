@@ -64,7 +64,7 @@ const submitForm = () => {
     .post("/login", form.value)
     .then((response) => {
       login(response.data);
-      navigateTo("/");
+      navigateTo("/account");
     })
     .catch((err) => {
       formErrors.value = err.response.data;

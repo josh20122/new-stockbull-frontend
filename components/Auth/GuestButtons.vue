@@ -12,7 +12,7 @@
         LOGIN
       </UButton>
     </NuxtLink>
-    <div class="py-1"></div>
+    <!-- <div class="py-1"></div> -->
     <NuxtLink to="/auth/register">
       <UButton
         color="yellow"

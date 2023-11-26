@@ -149,7 +149,7 @@ const submitForm = () => {
     .then((response) => {
       login(response.data);
 
-      navigateTo("/");
+      navigateTo("/account");
     })
     .catch((err) => {
       formErrors.value = err.response.data.errors;
