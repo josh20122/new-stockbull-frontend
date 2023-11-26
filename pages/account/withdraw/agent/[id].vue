@@ -160,14 +160,16 @@
                 customer support.
               </a>
             </div>
+          </div>
+          <template #footer>
             <UButton
+              @click="confirmWithdrawal()"
               block
               class="uppercase bottom-3"
-              @click="confirmWithdrawal()"
             >
               Confirm withdrawal
             </UButton>
-          </div>
+          </template>
         </UCard>
       </USlideover>
     </div>

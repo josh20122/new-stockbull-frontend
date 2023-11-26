@@ -34,7 +34,7 @@
     <div>
       <USlideover v-model="modalIsOpen" prevent-close>
         <UCard
-          class="flex flex-col flex-1 relative"
+          class="flex flex-col flex-1 relative h-screen overflow-y-scroll"
           :ui="{
             body: { base: 'flex-1' },
             ring: '',
@@ -160,6 +160,8 @@
                 customer support.
               </a>
             </div>
+          </div>
+          <template #footer>
             <UButton
               @click="confirmWithdrawal()"
               block
@@ -167,7 +169,7 @@
             >
               Confirm withdrawal
             </UButton>
-          </div>
+          </template>
         </UCard>
       </USlideover>
     </div>
