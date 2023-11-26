@@ -18,6 +18,8 @@
       type="area"
       :height="screenHeight - 20"
     ></VueApexCharts>
+
+    <HomeStockbullStopBot></HomeStockbullStopBot>
   </SharedContainer>
   <div class="absolute top-20 w-full flex justify-center" v-if="processing">
     <svg

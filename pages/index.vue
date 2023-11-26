@@ -111,27 +111,7 @@
       v-if="isSmallScreen"
     >
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
-      <!-- <SharedModal
-        :showModal="showStakeModal"
-        @close="showArbitrageStakeModal = false"
-      >
-        <div class="inline-flex flex-col gap-y-10 w-full">
-          <HomeStakeSynthetics
-            v-if="activeMarket == 'C'"
-            @cancel="showStakeModal = false"
-          ></HomeStakeSynthetics>
-          <HomeStakeBinanceMarket
-            v-if="activeMarket == 'A'"
-            @cancel="showStakeModal = false"
-          ></HomeStakeBinanceMarket>
-          <HomeStakeStockbullMarket
-            v-if="activeMarket == 'B'"
-            @cancel="showStakeModal = false"
-          ></HomeStakeStockbullMarket>
 
-          <AuthGuestButtons class="hidden md:block"></AuthGuestButtons>
-        </div>
-      </SharedModal> -->
       <div class="w-full" v-if="isAuthenticated">
         <button
           @click="showStakeModal = true"
@@ -168,6 +148,7 @@
         </div>
       </div>
     </div>
+    <UNotifications />
   </div>
 </template>
 <script setup>
