@@ -2,7 +2,7 @@
   <div>
     <div
       className="absolute rounded-md  top-14 right-28 "
-      @click="isOpen = true"
+      @click="handleChangeBotStatus()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +113,7 @@ const setBotStatus = () => {
 };
 
 const handleChangeBotStatus = () => {
-  if (botStatus.value) {
+  if (botStatus.value == true) {
     isOpen.value = true;
   } else {
     hadleResumeBot();
