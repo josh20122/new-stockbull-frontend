@@ -6,6 +6,14 @@ export const useUser = () => useState("useUser", () => []);
 export const useStockbullBotHistory = () =>
   useState("useStockbullBotHistory", () => []);
 
+export const useActiveStockbullMarket = () =>
+  useState("useActiveStockbullMarket", () => {
+    return {
+      name: "Stockbull 1f",
+      real_name: "november",
+    };
+  });
+
 export const useStockbullMarkets = () =>
   useState("useStockbullMarkets", () => []);
 

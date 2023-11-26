@@ -46,7 +46,9 @@
                   </div>
                 </div>
                 <ChartsStockbullChart
-                  v-if="activeMarket == 'C' && chartView"
+                  v-if="
+                    activeMarket == 'C' && chartView && renderStockbullChart
+                  "
                 ></ChartsStockbullChart>
 
                 <HomeStockbullBotHistory
@@ -153,6 +155,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
 const activeMarket = useMarkets();
 const binanceMarketsModal = ref(true);
 const symbol = useTradingviewSymbol();
@@ -177,6 +180,26 @@ const showStockbullChart = computed(() => {
     return false;
   }
 });
+
+const activeStockbullChart = useActiveStockbullMarket();
+
+watch(
+  () => activeStockbullChart.value.real_name,
+  () => {
+    setAxiosConfigurations();
+    rerenderStockbullChart();
+  }
+);
+
+const renderStockbullChart = ref(true);
+
+const rerenderStockbullChart = async () => {
+  renderStockbullChart.value = false;
+
+  await nextTick();
+
+  renderStockbullChart.value = true;
+};
 
 onMounted(() => {
   setScreenHeight();

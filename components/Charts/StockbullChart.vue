@@ -44,7 +44,7 @@
 <script setup>
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import axios from "axios";
 import { getItem } from "@utils/localStorage";
 import VueApexCharts from "vue3-apexcharts";
@@ -62,10 +62,11 @@ const isSmallScreen = () => {
 const screenHeight = ref(0);
 const setScreenHeight = () => {
   var stockbullChartElement = document.getElementById("stockbullChart");
-  console.log(stockbullChartElement.offsetHeight);
 
   screenHeight.value = stockbullChartElement.offsetHeight;
 };
+
+const activeChart = useActiveStockbullMarket();
 
 const minutes = ref(7);
 
@@ -215,7 +216,7 @@ onMounted(() => {
   const echo = new Echo(runtimeConfig.public.pusher);
 
   echo.channel("chart-data").listen(".data", async (pusherData) => {
-    let data = pusherData[getItem("activeChart")];
+    let data = pusherData[activeChart.value.real_name];
 
     let profitLineColor = data.chart.value < data.profitLine ? "red" : "green";
     let previousChartData = chartData.value;

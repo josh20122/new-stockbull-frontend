@@ -34,7 +34,9 @@
       >
         <div class="inline-flex">
           <span>
-            {{ activeSymbolData.symbol }}
+            {{
+              activeMarket == "C" ? activeChart.name : activeSymbolData.symbol
+            }}
           </span>
           <span
             ><svg
@@ -51,13 +53,13 @@
             </svg>
           </span>
         </div>
-        <div>{{ activeSymbolData.price }}</div>
+        <div>{{ activeMarket == "C" ? "" : activeSymbolData.price }}</div>
         <div
           :class="
             activeSymbolData.change < 0 ? 'text-red-500' : ' text-green-500'
           "
         >
-          {{ activeSymbolData.changePercentage }}
+          {{ activeMarket == "C" ? "" : activeSymbolData.changePercentage }}
         </div>
       </div>
     </SharedContainer>
@@ -82,6 +84,7 @@ import { ref } from "vue";
 let activeSymbolData = useActiveTradingViewSymbol();
 const marketsModal = ref(false);
 const activeMarket = useMarkets();
+const activeChart = useActiveStockbullMarket();
 
 const setActiveMarket = (value) => {
   console.log(value);

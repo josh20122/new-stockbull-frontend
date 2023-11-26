@@ -111,13 +111,22 @@
           </template>
         </UInput>
       </template>
-      <div class="flex flex-col pt-2 py-20 max-h-screen overflow-scroll">
-        <div className=" pb-4" v-for="(item, index) in markets">
+      <div
+        class="flex flex-col pt-2 py-20 max-h-screen overflow-scroll cursor-pointer"
+      >
+        <div
+          className="   rounded-md p-2 "
+          :class="
+            item.real_name == activeChart.real_name ? 'bg-yellow-600 ' : 'bg-'
+          "
+          v-for="(item, index) in markets"
+          @click="handleActiveChart(item)"
+        >
           <div
             class="flex w-full justify-between"
             :class="item.active < 1 && 'opacity-50'"
           >
-            <div className="inline-flex gap-x-2">
+            <div className="inline-flex gap-x-2 ">
               <div
                 className="  inline-flex align-middle place-items-center"
                 v-html="item.image"
@@ -127,6 +136,7 @@
                 {{ item.description }}
               </div>
             </div>
+
             <div>
               <div className="inline-flex gap-x-2">
                 <div className="text-green-400 text-[9px]"></div>
@@ -153,14 +163,12 @@
               </div>
             </div>
           </div>
-
           <hr
             v-if="index != markets.length - 1"
             className="  border-gray-800  mt-2"
           />
         </div>
       </div>
-
       <template #footer>
         <Placeholder class="h-8" />
       </template>
@@ -171,11 +179,17 @@
 <script setup>
 import axios from "axios";
 import { watch, defineEmits } from "vue";
+const activeChart = useActiveStockbullMarket();
+const handleActiveChart = (newValue) => {
+  activeChart.value = newValue;
+};
+
+const renderComponent = ref(true);
+
 const props = defineProps({
   showModal: {
     default: true,
   },
-
   doNotShow: {
     default: false,
   },

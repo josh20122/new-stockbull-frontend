@@ -3,6 +3,7 @@ import { getItem, setItem } from "./localStorage";
 import { Container } from "postcss";
 
 export const setAxiosConfigurations = () => {
+  const activeStockbullChart = useActiveStockbullMarket();
   setItem("activeChart", "november");
   setItem("activeChartName", "STockBull index (1f)");
 
@@ -25,7 +26,7 @@ export const setAxiosConfigurations = () => {
   }
 
   axios.defaults.headers.common["activeChart"] =
-    getItem("activeChart") ?? "november";
+    activeStockbullChart.value.real_name;
 
   let env = useRuntimeConfig();
 
