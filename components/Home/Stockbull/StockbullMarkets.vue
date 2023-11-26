@@ -179,9 +179,11 @@
 <script setup>
 import axios from "axios";
 import { watch, defineEmits } from "vue";
+const emit = defineEmits("closeModal");
 const activeChart = useActiveStockbullMarket();
 const handleActiveChart = (newValue) => {
   activeChart.value = newValue;
+  emit("closeModal");
 };
 
 const renderComponent = ref(true);
@@ -195,7 +197,6 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits("closeModal");
 const modalIsVisible = ref(false);
 
 watch(
@@ -204,6 +205,7 @@ watch(
     modalIsVisible.value = newValue;
   }
 );
+
 watch(modalIsVisible, (newValue) => {
   if (newValue == false) {
     emit("closeModal");
