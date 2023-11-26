@@ -4,7 +4,9 @@ export default defineNuxtConfig({
   // css: ["~/assets/css/main.css"],
   modules: ["@nuxt/ui"],
   ssr: false,
-
+  colorMode: {
+    preferences: "dark",
+  },
   plugins: [{ ssr: false, src: "plugins/axiosConfigs" }],
   alias: {
     "@utils": fileURLToPath(new URL(".utils", import.meta.url)),

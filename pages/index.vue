@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#000000]">
+  <div class="bg-[#000000] text-white">
     <SharedNavBar></SharedNavBar>
     <div class="text-xs w-screen mt-2 px-2">
       <div class="grid grid-cols-12 gap-2">

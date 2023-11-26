@@ -1,6 +1,6 @@
 <template>
-  <div class="flex place-items-center justify-center w-full pt-6 h-full">
-    <SharedContainer class="rounded-md w-full max-w-[400px]">
+  <div class="h-fit">
+    <SharedContainer class="rounded-md w-full">
       <div class="text-center pb-5">DEPOSIT CRYPTOCURRENCY</div>
       <div class="flex flex-col gap-y-6">
         <SharedTextInput
