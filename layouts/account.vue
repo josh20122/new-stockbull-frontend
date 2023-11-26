@@ -30,6 +30,7 @@ const pathsToShowTransactions = [
   "/account/deposit",
   "/account/profile",
   "/account/settings",
+  "/account/withdraw",
 ];
 const showTransactions = computed(() => {
   if (pathsToShowTransactions.includes(route.fullPath)) {

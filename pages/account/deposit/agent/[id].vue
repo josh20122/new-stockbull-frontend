@@ -1,22 +1,5 @@
 <template>
-  <SharedModal
-    :showModal="modalIsOpen"
-    @close="modalIsOpen = false"
-    class="text-center"
-  >
-    <div class="text-center">
-      PENDING REQUEST OF {{ paymentMethod.amount }}USD
-    </div>
-    <div>INSTRUCTIONS</div>
-    <div v-html="paymentMethod.content"></div>
-    <!-- <button class="btn btn-xs btn-secondary text-white">
-      COPY AGENT NUMBER
-    </button> -->
-    <div class="pt-5">waiting for transaction</div>
-  </SharedModal>
-  <div
-    class="flex place-items-center min-h-screen justify-center w-full h-full"
-  >
+  <div class="flex w-full h-fit">
     <SharedContainer class="rounded-md w-full max-w-[400px]">
       <div class="text-center pb-5">Deposit</div>
       <div class="flex flex-col gap-y-6">
@@ -33,13 +16,16 @@
           :errors="formErrors.phone"
           placeholder="Enter deposit phone number"
         ></SharedTextInput>
-
-        <button
-          @click="submitForm()"
-          class="btn btn-secondary btn-sm text-white"
-        >
-          DEPOSIT
-        </button>
+        <div>
+          <UButton
+            @click="updatePassword()"
+            color="yellow"
+            block
+            class="text-white text-center rounded-md"
+          >
+            Change Password
+          </UButton>
+        </div>
       </div>
     </SharedContainer>
   </div>
