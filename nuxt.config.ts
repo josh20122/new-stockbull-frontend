@@ -13,7 +13,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      baseURL: "https://stockbullsecure.com/api",
+      baseURL: "https://api.stockbull.live/api",
       pusher: {
         broadcaster: "pusher",
 

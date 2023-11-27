@@ -10,6 +10,7 @@
           <span class="text-yellow-600"></span>
         </div>
       </div>
+      <HomeActiveAccount></HomeActiveAccount>
       <div class="md:flex gap-2 place-items-center hidden">
         <NuxtLink active-class="text-yellow-600" to="/"> Trade </NuxtLink>
         <NuxtLink active-class="text-yellow-600" to="/account">
