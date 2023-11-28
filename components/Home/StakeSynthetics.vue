@@ -42,6 +42,26 @@ const activeStockbullSymbol = useActiveStockbullMarket();
 const activeAccount = useActiveAccount();
 const toast = useToast();
 const activateStake = () => {
+  if (target.value > stake.value * 3.5 || target.value < stake.value * 2.5) {
+    toast.add({
+      title: `Failed, please enter target between ${stake.value * 2.5} and ${
+        stake.value * 3.5
+      }.`,
+      color: "teal",
+    });
+
+    return;
+  }
+
+  if (stake.value < 10) {
+    toast.add({
+      title: `Failed, minimum stake amount is USD10.`,
+      color: "teal",
+    });
+
+    return;
+  }
+
   let url =
     activeAccount.value.type === "demo" ? "/invest-demo" : "/invest-live";
 
@@ -52,6 +72,12 @@ const activateStake = () => {
     })
     .then((response) => {
       toast.add({ title: "🐂 Bot Activated Successfully" });
+    })
+    .catch(() => {
+      toast.add({
+        title: `Failed, seems like you have insuficient balance.`,
+        color: "teal",
+      });
     });
 };
 

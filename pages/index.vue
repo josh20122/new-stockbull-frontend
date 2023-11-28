@@ -177,8 +177,8 @@ const showStockbullChart = computed(() => {
 });
 
 const stakeButtonsConfigs = computed(() => {
-  let buy = true;
-  let sell = true;
+  let buy = false;
+  let sell = false;
   let sellLabel = null;
   let buyLabel = null;
   let stake = false;
@@ -191,6 +191,8 @@ const stakeButtonsConfigs = computed(() => {
     buyLabel = "P: " + stockbullProfits.value.profit;
     stake = true;
     sellLabel = "L: " + stockbullProfits.value.profit;
+    let buy = true;
+    let sell = true;
   }
 
   return {
