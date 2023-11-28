@@ -21,10 +21,11 @@
             </div>
             <div class="flex gap-x-2 w-full">
 
-                <UInput placeholder="Search..." :trailing="true" :model-value="user.referral_link" class=" w-full">
+                <UInput :disabled="true" placeholder="Search..." :trailing="true" :model-value="user.referral_link"
+                    class=" w-full" readonly>
                 </UInput>
-                <UButton icon="i-heroicons-pencil-square" @click="copyReferralLink()" size="sm" color="primary" square
-                    variant="solid" />
+                <UButton icon="i-heroicons-clipboard-document-list" @click="copyReferralLink()" size="sm" color="primary"
+                    square variant="solid" />
             </div>
 
 
