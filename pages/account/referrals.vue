@@ -24,7 +24,7 @@
 
                         <div class=" w-fit rounded-md px-2 text-sm py-1 uppercase bg-yellow-600 text-white">
 
-                            <a target="_blank">
+                            <a target="_blank" :href="'https://wa.me/' + item.user.phone.replace(/[\s+]/g, '')">
                                 {{ item.user.phone }}
                             </a>
                         </div>
