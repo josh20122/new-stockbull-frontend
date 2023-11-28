@@ -210,14 +210,18 @@ const updateChart = (newTime, oldTime) => {
   }
 };
 
+const echo = new Echo(runtimeConfig.public.pusher);
+onUnmounted(() => {
+  echo.leaveChannel("chart-data");
+});
+
 onMounted(() => {
   setScreenHeight();
   window.Pusher = Pusher;
-  const echo = new Echo(runtimeConfig.public.pusher);
 
   echo.channel("chart-data").listen(".data", async (pusherData) => {
     let data = pusherData[activeChart.value.real_name];
-    console.log(data);
+    // console.log(data);
 
     let profitLineColor = data.chart.value < data.profitLine ? "red" : "green";
     let previousChartData = chartData.value;

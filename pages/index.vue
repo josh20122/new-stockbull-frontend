@@ -112,9 +112,30 @@
       class="fixed bottom-0 py-2 border-t z-50 border-gray-500 w-full px-2 bg-black"
       v-if="isSmallScreen"
     >
+      <SharedModal :show-modal="stakeModal" @close="stakeModal = false">
+        <HomeStakeSynthetics
+          v-if="activeMarket == 'C'"
+          class="w-full"
+          @cancel="showStakeModal = false"
+        ></HomeStakeSynthetics>
+        <HomeStakeBinanceMarket
+          v-if="activeMarket == 'A'"
+          class="w-full"
+          @cancel="showStakeModal = false"
+        ></HomeStakeBinanceMarket>
+        <HomeStakeStockbullMarket
+          class="w-full"
+          v-if="activeMarket == 'B'"
+          @cancel="showStakeModal = false"
+        ></HomeStakeStockbullMarket>
+      </SharedModal>
+
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
 
-      <SharedStakeButtons :settings="stakeButtonsConfigs"></SharedStakeButtons>
+      <SharedStakeButtons
+        @stake="handleStake()"
+        :settings="stakeButtonsConfigs"
+      ></SharedStakeButtons>
     </div>
     <UNotifications />
     <SharedLiveChat></SharedLiveChat>
@@ -132,10 +153,16 @@ const isAuthenticated = useAuthenticated();
 const testdata = ref("");
 const screenHeight = ref(0);
 const screeWidth = ref(0);
+const stockbullProfits = useStockbullProfits();
+const stakeModal = ref(false);
+
+const handleStake = () => {
+  stakeModal.value = true;
+};
+
 const setScreenHeight = () => {
   screenHeight.value = document.documentElement.clientHeight;
   screeWidth.value = document.documentElement.clientWidth;
-  console.log(document.documentElement.clientWidth);
 };
 const isSmallScreen = computed(() => {
   return document.documentElement.clientWidth < 768;
@@ -154,19 +181,22 @@ const stakeButtonsConfigs = computed(() => {
   let sell = true;
   let sellLabel = null;
   let buyLabel = null;
+  let stake = false;
 
   if (activeMarket.value == "A") {
     sell = false;
   }
 
   if (activeMarket.value == "C") {
-    buyLabel = "P USD200.00";
-    sellLabel = "L USD200.00";
+    buyLabel = "P: " + stockbullProfits.value.profit;
+    stake = true;
+    sellLabel = "L: " + stockbullProfits.value.profit;
   }
 
   return {
     buy: buy,
     sell: sell,
+    stake: stake,
     sellLabel: sellLabel,
     buyLabel: buyLabel,
   };
@@ -195,7 +225,5 @@ const rerenderStockbullChart = async () => {
 onMounted(() => {
   setScreenHeight();
 });
-watch(testdata, (newval, oldval) => {
-  console.log(newval);
-});
+watch(testdata, (newval, oldval) => {});
 </script>

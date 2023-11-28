@@ -582,7 +582,7 @@ const menuSymbols = computed(() => {
     allowedSymbols.includes(item.s)
   );
 
-  return filteredSymbols
+  allSymbols.value = filteredSymbols
     .map((item) => {
       return {
         symbol: item.s,
@@ -606,6 +606,8 @@ const menuSymbols = computed(() => {
       1;
       return 0;
     });
+
+  return allSymbols.value;
 });
 
 onMounted(() => {
@@ -626,8 +628,6 @@ onMounted(() => {
       } else {
         symbols.data.push(element);
       }
-
-      allSymbols.value = symbols.data;
     });
   };
 });

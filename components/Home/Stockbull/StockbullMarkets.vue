@@ -30,7 +30,11 @@
     </div>
 
     <div class="flex flex-col py-3">
-      <div className=" pb-4" v-for="(item, index) in markets">
+      <div
+        className=" pb-4 cursor-pointer"
+        v-for="(item, index) in markets"
+        @click="handleActiveChart(item)"
+      >
         <div
           class="flex w-full justify-between"
           :class="item.active < 1 && 'opacity-50'"

@@ -18,25 +18,46 @@
         <SharedTextInput
           label="Frequency"
           placeholder="Enter your stake amount"
-          :model-value="'15f'"
+          :model-value="activeStockbullSymbol.name"
           readonly="true"
         ></SharedTextInput>
-        <SharedStakeButtons></SharedStakeButtons>
+        <SharedStakeButtons
+          class="pt-2"
+          @stake="activateStake()"
+          :settings="stakeButtonsConfigs"
+        ></SharedStakeButtons>
       </div>
     </div>
   </SharedContainer>
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref, watch } from "vue";
 const isAuthenticated = useAuthenticated();
 const stake = ref(10);
 const target = ref(10 * 3);
 const activeMarket = useMarkets();
+const activeStockbullSymbol = useActiveStockbullMarket();
+const activeAccount = useActiveAccount();
+const toast = useToast();
+const activateStake = () => {
+  let url =
+    activeAccount.value.type === "demo" ? "/invest-demo" : "/invest-live";
+
+  axios
+    .post(url, {
+      stake: stake.value,
+      stakeAndTarget: target.value,
+    })
+    .then((response) => {
+      toast.add({ title: "🐂 Bot Activated Successfully" });
+    });
+};
 
 const stakeButtonsConfigs = computed(() => {
-  let buy = true;
-  let sell = true;
+  let buy = false;
+  let sell = false;
   let sellLabel = null;
   let buyLabel = null;
 
@@ -53,7 +74,8 @@ const stakeButtonsConfigs = computed(() => {
     buy: buy,
     sell: sell,
     sellLabel: sellLabel,
-    buyLabel: buyLabel,
+    buyLabel: "STAKE",
+    stake: true,
   };
 });
 

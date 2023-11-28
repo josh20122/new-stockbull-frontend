@@ -5,14 +5,23 @@ export const useSymbols = () => useState("useSymbols", () => []);
 export const useUser = () => useState("useUser", () => []);
 export const useStockbullBotHistory = () =>
   useState("useStockbullBotHistory", () => []);
+export const useStockbullProfits = () =>
+  useState("useStockbullProfits", () => {
+    return {
+      profit: 0.0,
+      loss: 0.0,
+    };
+  });
 
 export const useActiveStockbullMarket = () =>
   useState("useActiveStockbullMarket", () => {
     return {
-      name: "Stockbull 1f",
+      name: "Stockbull (1f)",
       real_name: "november",
     };
   });
+export const useStockbullAccounts = () =>
+  useState("useStockbullAccounts", () => []);
 
 export const useStockbullMarkets = () =>
   useState("useStockbullMarkets", () => []);

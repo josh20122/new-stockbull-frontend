@@ -1,28 +1,42 @@
 <template>
-  <div class="w-full gap-x-2 flex-row gap-y-4 flex md:flex-col">
-    <div v-if="settings.buy" class="w-full">
+  <div class="flex flex-col w-full gap-y-2">
+    <div v-if="settings.stake" class="w-full">
       <UButton
         color="yellow"
+        @click="$emit('stake')"
         block
         class="text-white w-full text-center rounded-xs"
       >
-        {{ settings.buyLabel ?? "BUY" }}
+        {{ settings.stakeLabel ?? "STAKE" }}
       </UButton>
     </div>
-    <div v-if="settings.sell" class="w-full">
-      <UButton
-        color="yellow"
-        block
-        variant="outline"
-        class="text-white w-full text-center rounded-xs"
-      >
-        {{ settings.sellLabel ?? "SELL" }}
-      </UButton>
+    <div class="w-full gap-x-2 flex-row gap-2 flex md:flex-col">
+      <div v-if="settings.buy" class="w-full">
+        <UButton
+          @click="$emit('buy')"
+          color="yellow"
+          block
+          class="text-white w-full text-center rounded-xs"
+        >
+          {{ settings.buyLabel ?? "BUY" }}
+        </UButton>
+      </div>
+      <div v-if="settings.sell" class="w-full">
+        <UButton
+          color="yellow"
+          block
+          @click="$emit('sell')"
+          variant="outline"
+          class="text-white w-full text-center rounded-xs"
+        >
+          {{ settings.sellLabel ?? "SELL" }}
+        </UButton>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps(["settings"]);
-const emit = defineEmits("buy", "sell");
+const emit = defineEmits("buy", "sell", "stake");
 </script>

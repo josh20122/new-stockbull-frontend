@@ -6,8 +6,8 @@
         <USelect
           id="countries"
           :options="symbols"
-          option-attribute="s"
-          value-attribute="s"
+          option-attribute="symbol"
+          value-attribute="symbol"
           v-model="form.symbol"
         />
 

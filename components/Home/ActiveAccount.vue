@@ -28,7 +28,7 @@
 import axios from "axios";
 import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
 
-const accounts = ref([]);
+const accounts = useStockbullAccounts();
 const activeAccount = useActiveAccount();
 const user = useUser();
 
@@ -39,12 +39,5 @@ const changeActiveAccount = (item) => {
 
 onMounted(() => {
   // setAxiosConfigurations();
-  axios.get("/account-details").then((response) => {
-    accounts.value = response.data.accounts;
-
-    activeAccount.value = response.data.accounts.filter(
-      (value) => value.type == "live"
-    )[0];
-  });
 });
 </script>
