@@ -1,7 +1,9 @@
 <template>
   <div>
-    <UModal v-model="modalIsOpen" class="flex w-fit">
-      <slot></slot>
+    <UModal v-model="modalIsOpen" class="flex w-fit" :overlay="false">
+      <div class="py-4">
+        <slot></slot>
+      </div>
     </UModal>
   </div>
 </template>
