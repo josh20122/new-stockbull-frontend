@@ -20,13 +20,9 @@ const rerenderKey = ref(0);
 const renderComponent = ref(true);
 
 const forceRender = async () => {
-  // Here, we'll remove MyComponent
   renderComponent.value = false;
 
-  // Then, wait for the change to get flushed to the DOM
   await nextTick();
-
-  // Add MyComponent back in
   renderComponent.value = true;
 };
 
@@ -41,7 +37,7 @@ const chartOptions = ref({
   enable_publishing: false,
   withdateranges: true,
   hide_side_toolbar: false,
-  allow_symbol_change: true,
+  allow_symbol_change: false,
   show_popup_button: true,
   popup_width: "1000",
   popup_height: "650",
@@ -62,7 +58,7 @@ watch(symbol, () => {
     enable_publishing: false,
     withdateranges: true,
     hide_side_toolbar: false,
-    allow_symbol_change: true,
+    allow_symbol_change: false,
     show_popup_button: true,
     popup_width: "1000",
     popup_height: "650",

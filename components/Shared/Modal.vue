@@ -30,7 +30,6 @@ onMounted(() => {
       if (showModal == true) {
         emits("close");
       }
-      // Clicked outside the box
     }
   });
 });

@@ -25,3 +25,8 @@ export const useActiveTradingViewSymbol = () =>
       changePercentage: 0.18,
     };
   });
+
+export const useActiveAccount = () =>
+  useState("useActiveAccount", () => {
+    return {};
+  });

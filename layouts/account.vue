@@ -1,7 +1,6 @@
 <template>
   <div class="bg-black min-h-screen h-full w-full">
     <SharedNavBar></SharedNavBar>
-
     <div class="px-2 pt-8">
       <div
         class="grid md:grid-cols-12 grid-cols-1 justify-between md:px-10 gap-4"

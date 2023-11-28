@@ -30,8 +30,10 @@ export const setAxiosConfigurations = () => {
 
   let env = useRuntimeConfig();
 
+  const activeAccount = useActiveAccount();
+
   axios.defaults.headers.common["activeAccount"] =
-    getItem("accountType") ?? "demo";
+    activeAccount.value.type ?? "live";
   const authToken = getItem("token");
   axios.defaults.baseURL = env.public.baseURL;
   axios.defaults.headers.common.Authorization = "Bearer " + authToken;
