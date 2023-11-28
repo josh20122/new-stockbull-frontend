@@ -114,41 +114,7 @@
     >
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
 
-      <div class="w-full" v-if="isAuthenticated">
-        <button
-          @click="showStakeModal = true"
-          v-if="activeMarket == 'C'"
-          class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-        >
-          Stake
-        </button>
-
-        <button
-          @click="showStakeModal = true"
-          v-else-if="activeMarket == 'A'"
-          class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-        >
-          BUY
-        </button>
-        <div class="flex w-full gap-2" v-if="activeMarket == 'B'">
-          <div class="w-full">
-            <button
-              @click="showStakeModal = true"
-              class="btn btn-sm uppercase w-full rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-            >
-              BUY
-            </button>
-          </div>
-          <div class="w-full">
-            <button
-              @click="showStakeModal = true"
-              class="btn btn-sm w-full hover:outline-yellow-500 hover:border-yellow-500 hover:bg-transparent uppercase rounded-sm outline-yellow-500 bg-transparent border-yellow-500 text-yellow-500 font-medium text-xs"
-            >
-              SELL
-            </button>
-          </div>
-        </div>
-      </div>
+      <SharedStakeButtons :settings="stakeButtonsConfigs"></SharedStakeButtons>
     </div>
     <UNotifications />
     <SharedLiveChat></SharedLiveChat>
@@ -174,12 +140,36 @@ const setScreenHeight = () => {
 const isSmallScreen = computed(() => {
   return document.documentElement.clientWidth < 768;
 });
+
 const showStockbullChart = computed(() => {
   if (activeMarket == "C" && chartView) {
     return true;
   } else {
     return false;
   }
+});
+
+const stakeButtonsConfigs = computed(() => {
+  let buy = true;
+  let sell = true;
+  let sellLabel = null;
+  let buyLabel = null;
+
+  if (activeMarket.value == "A") {
+    sell = false;
+  }
+
+  if (activeMarket.value == "C") {
+    buyLabel = "P USD200.00";
+    sellLabel = "L USD200.00";
+  }
+
+  return {
+    buy: buy,
+    sell: sell,
+    sellLabel: sellLabel,
+    buyLabel: buyLabel,
+  };
 });
 
 const activeStockbullChart = useActiveStockbullMarket();

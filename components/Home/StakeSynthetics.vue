@@ -21,18 +21,7 @@
           :model-value="'15f'"
           readonly="true"
         ></SharedTextInput>
-        <button
-          class="btn btn-sm uppercase rounded-sm hover:bg-yellow-500 hover:text-sky-900 bg-yellow-500 font-medium text-xs text-slate-900"
-        >
-          Stake
-        </button>
-
-        <button
-          @click="$emit('cancel')"
-          class="btn btn-sm w-full hover:outline-red-500 hover:border-red-500 hover:bg-transparent uppercase rounded-sm outline-red-500 bg-transparent border-red-500 text-red-500 font-medium text-xs"
-        >
-          CANCEL
-        </button>
+        <SharedStakeButtons></SharedStakeButtons>
       </div>
     </div>
   </SharedContainer>
@@ -43,6 +32,31 @@ import { ref, watch } from "vue";
 const isAuthenticated = useAuthenticated();
 const stake = ref(10);
 const target = ref(10 * 3);
+const activeMarket = useMarkets();
+
+const stakeButtonsConfigs = computed(() => {
+  let buy = true;
+  let sell = true;
+  let sellLabel = null;
+  let buyLabel = null;
+
+  if (activeMarket.value == "A") {
+    sell = false;
+  }
+
+  if (activeMarket.value == "C") {
+    buyLabel = "P USD200.00";
+    sellLabel = "L USD200.00";
+  }
+
+  return {
+    buy: buy,
+    sell: sell,
+    sellLabel: sellLabel,
+    buyLabel: buyLabel,
+  };
+});
+
 watch(stake, (newval, oldval) => {
   target.value = newval * 3;
 });

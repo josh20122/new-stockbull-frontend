@@ -8,7 +8,7 @@
     </UButton>
 
     <template #panel>
-      <div class="flex flex-col py-3 gap-y-2 px-2">
+      <div class="flex flex-col py-3 gap-y-2 px-2 select-none">
         <div
           v-for="(item, index) in accounts"
           :key="index"
