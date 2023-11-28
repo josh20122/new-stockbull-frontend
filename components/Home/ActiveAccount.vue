@@ -17,4 +17,10 @@
   </UPopover>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from "axios";
+
+const accounts = ref([]);
+
+const setAccounts = () => {};
+</script>

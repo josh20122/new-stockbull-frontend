@@ -21,6 +21,7 @@
     </div>
   </div>
   <UNotifications />
+  <SharedLiveChat></SharedLiveChat>
 </template>
 <script setup>
 definePageMeta({});

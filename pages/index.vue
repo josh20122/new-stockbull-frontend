@@ -151,6 +151,7 @@
       </div>
     </div>
     <UNotifications />
+    <SharedLiveChat></SharedLiveChat>
   </div>
 </template>
 <script setup>

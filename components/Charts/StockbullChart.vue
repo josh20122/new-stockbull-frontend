@@ -217,6 +217,7 @@ onMounted(() => {
 
   echo.channel("chart-data").listen(".data", async (pusherData) => {
     let data = pusherData[activeChart.value.real_name];
+    console.log(data);
 
     let profitLineColor = data.chart.value < data.profitLine ? "red" : "green";
     let previousChartData = chartData.value;
