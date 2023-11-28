@@ -63,6 +63,7 @@
 <script setup>
 import axios from 'axios';
 
+const toast = useToast()
 const referrals = ref({})
 onMounted(() => {
     axios
@@ -78,6 +79,8 @@ const user = useUser()
 
 const copyReferralLink = () => {
     navigator.clipboard.writeText(user.value.referral_link)
+    toast.add({ title: 'Copied' });
+
 }
 
 definePageMeta({
