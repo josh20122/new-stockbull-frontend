@@ -177,13 +177,18 @@ watch(testdata, (newval, oldval) => { });
 
 const botData = useBotDetails();
 const rerenderBotHistory = ref(true)
-watch(() => botData.value.wallets, (newval) => {
+const handleRerenderBotHistory = async () => {
 
   rerenderBotHistory.value = false;
 
-  nextTick();
+  await nextTick();
 
   rerenderBotHistory.value = true;
+}
+
+watch(() => botData.value.wallets, (newval) => {
+  console.log('planning rerender')
+  handleRerenderBotHistory()
 })
 
 </script>

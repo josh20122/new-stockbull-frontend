@@ -1,11 +1,6 @@
 <template>
   <div>
-    <UModal
-      v-model="modalIsOpen"
-      class="flex w-fit"
-      :overlay="false"
-      prevent-close
-    >
+    <UModal v-model="modalIsOpen" class="flex w-fit" :overlay="false" prevent-close>
       <div class="py-4">
         <slot></slot>
       </div>

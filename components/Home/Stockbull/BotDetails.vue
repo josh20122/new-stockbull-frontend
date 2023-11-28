@@ -10,14 +10,14 @@
 
         <div class="flex flex-col gap-y-2">
             <div class="  bg-slate-900 py-3 rounded-md">
-                Paid Target: {{ botData.wallets[1] }}USD
+                Paid Target: {{ botData.wallets[1].toFixed(4) }}USD
             </div>
 
             <div class="  bg-slate-900 py-3 rounded-md">
-                Remaining Target: {{ botData.wallets[0] }}USD
+                Remaining Target: {{ botData.wallets[0].toFixed(4) }}USD
             </div>
             <div class="  bg-slate-900 py-3 rounded-md">
-                Total Target: {{ botData.wallets[0] + botData.wallets[1] }}USD
+                Total Target: {{ (botData.wallets[0] + botData.wallets[1]).toFixed(4) }}USD
             </div>
         </div>
     </SharedContainer>
@@ -28,6 +28,10 @@
 import VueApexCharts from "vue3-apexcharts";
 
 const botData = useBotDetails();
+
+onMounted(() => {
+    console.log('MOUNTED')
+})
 
 const botDetails = ref({
     series: botData.value.wallets,
