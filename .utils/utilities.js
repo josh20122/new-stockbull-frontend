@@ -14,3 +14,11 @@ export const setStockbullProfits = () => {
     )[0];
   });
 };
+
+
+export const setStockbullBotDetails = () => {
+  const botDetails = useBotDetails();
+  axios.get("/bot-activity").then((response) => {
+    botDetails.value = response.data
+  });
+}

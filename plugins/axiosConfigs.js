@@ -3,6 +3,7 @@ import {
   authenticateUser,
   setAxiosConfigurations,
 } from "../.utils/axiosConfigurations";
+import { setStockbullBotDetails } from '@utils/utilities'
 
 import { setStockbullProfits } from "../.utils/utilities";
 
@@ -11,5 +12,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     setAxiosConfigurations();
     authenticateUser();
     setStockbullProfits();
+    setStockbullBotDetails()
   });
 });

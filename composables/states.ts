@@ -39,3 +39,11 @@ export const useActiveAccount = () =>
   useState("useActiveAccount", () => {
     return {};
   });
+
+export const useBotDetails = () => useState('useBotDetails', () => {
+  return {
+    activities: [],
+    stake_amount: 0,
+    wallets: [30, 20],
+  }
+})

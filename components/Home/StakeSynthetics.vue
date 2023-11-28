@@ -2,31 +2,15 @@
   <SharedContainer>
     <div class="inline-flex flex-col gap-y-10 w-full">
       <div class="inline-flex flex-col gap-y-1">
-        <SharedTextInput
-          label="Stake"
-          v-model="stake"
-          placeholder="Enter your stake amount"
-        ></SharedTextInput>
+        <SharedTextInput label="Stake" v-model="stake" placeholder="Enter your stake amount"></SharedTextInput>
 
-        <SharedTextInput
-          label="Target"
-          v-model="target"
-          placeholder="Enter your stake amount"
-          hint="stake * (2.5 - 3.5)"
-        ></SharedTextInput>
+        <SharedTextInput label="Target" v-model="target" placeholder="Enter your stake amount" hint="stake * (2.5 - 3.5)">
+        </SharedTextInput>
 
-        <SharedTextInput
-          label="Frequency"
-          placeholder="Enter your stake amount"
-          :model-value="activeStockbullSymbol.name"
-          readonly="true"
-        ></SharedTextInput>
-        <SharedStakeButtons
-          class="pt-2"
-          @stake="activateStake()"
-          @cancel="emit('cancel')"
-          :settings="stakeButtonsConfigs"
-        ></SharedStakeButtons>
+        <SharedTextInput label="Frequency" placeholder="Enter your stake amount" :model-value="activeStockbullSymbol.name"
+          readonly="true"></SharedTextInput>
+        <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')"
+          :settings="stakeButtonsConfigs"></SharedStakeButtons>
       </div>
     </div>
   </SharedContainer>
@@ -35,6 +19,7 @@
 <script setup>
 import axios from "axios";
 import { ref, watch, defineEmits } from "vue";
+import { setStockbullProfits } from "~/.utils/utilities";
 const isAuthenticated = useAuthenticated();
 const emit = defineEmits(["cancel"]);
 const stake = ref(10);
@@ -46,9 +31,8 @@ const toast = useToast();
 const activateStake = () => {
   if (target.value > stake.value * 3.5 || target.value < stake.value * 2.5) {
     toast.add({
-      title: `Failed, please enter target between ${stake.value * 2.5} and ${
-        stake.value * 3.5
-      }.`,
+      title: `Failed, please enter target between ${stake.value * 2.5} and ${stake.value * 3.5
+        }.`,
       color: "teal",
     });
 
@@ -74,8 +58,10 @@ const activateStake = () => {
     })
     .then((response) => {
       toast.add({ title: "🐂 Bot Activated Successfully" });
+      setStockbullProfits()
     })
     .catch(() => {
+
       toast.add({
         title: `Failed, seems like you have insuficient balance.`,
         color: "teal",
