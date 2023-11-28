@@ -3,7 +3,7 @@
     <div v-if="settings.stake" class="w-full">
       <UButton
         color="yellow"
-        @click="$emit('stake')"
+        @click="emit('stake')"
         block
         class="text-white w-full text-center rounded-xs"
       >
@@ -13,7 +13,7 @@
     <div class="w-full gap-x-2 flex-row gap-2 flex md:flex-col">
       <div v-if="settings.buy" class="w-full">
         <UButton
-          @click="$emit('buy')"
+          @click="emit('buy')"
           color="yellow"
           block
           class="text-white w-full text-center rounded-xs"
@@ -25,7 +25,7 @@
         <UButton
           color="yellow"
           block
-          @click="$emit('sell')"
+          @click="emit('sell')"
           variant="outline"
           class="text-white w-full text-center rounded-xs"
         >
@@ -33,10 +33,22 @@
         </UButton>
       </div>
     </div>
+    <div v-if="settings.cancel" class="w-full">
+      <UButton
+        color="red"
+        @click="emit('cancel')"
+        variant="outline"
+        block
+        class="text-white w-full text-center rounded-xs"
+      >
+        {{ settings.stakeLabel ?? "CANCEL" }}
+      </UButton>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { defineEmits } from "vue";
 const props = defineProps(["settings"]);
-const emit = defineEmits("buy", "sell", "stake");
+const emit = defineEmits(["buy", "sell", "stake"]);
 </script>

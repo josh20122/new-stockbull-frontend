@@ -24,6 +24,7 @@
         <SharedStakeButtons
           class="pt-2"
           @stake="activateStake()"
+          @cancel="emit('cancel')"
           :settings="stakeButtonsConfigs"
         ></SharedStakeButtons>
       </div>
@@ -33,8 +34,9 @@
 
 <script setup>
 import axios from "axios";
-import { ref, watch } from "vue";
+import { ref, watch, defineEmits } from "vue";
 const isAuthenticated = useAuthenticated();
+const emit = defineEmits(["cancel"]);
 const stake = ref(10);
 const target = ref(10 * 3);
 const activeMarket = useMarkets();
@@ -80,6 +82,9 @@ const activateStake = () => {
       });
     });
 };
+const isSmallScreen = computed(() => {
+  return document.documentElement.clientWidth < 768;
+});
 
 const stakeButtonsConfigs = computed(() => {
   let buy = false;
@@ -101,6 +106,7 @@ const stakeButtonsConfigs = computed(() => {
     sell: sell,
     sellLabel: sellLabel,
     buyLabel: "STAKE",
+    cancel: isSmallScreen.value,
     stake: true,
   };
 });

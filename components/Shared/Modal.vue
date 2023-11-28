@@ -1,6 +1,11 @@
 <template>
   <div>
-    <UModal v-model="modalIsOpen" class="flex w-fit" :overlay="false">
+    <UModal
+      v-model="modalIsOpen"
+      class="flex w-fit"
+      :overlay="false"
+      prevent-close
+    >
       <div class="py-4">
         <slot></slot>
       </div>
@@ -17,9 +22,8 @@ const modalIsOpen = ref(false);
 watch(
   () => props.showModal,
   (newval) => {
-    if (newval == true) {
-      modalIsOpen.value = true;
-    }
+    modalIsOpen.value = newval;
+    console.log(modalIsOpen.value);
   }
 );
 

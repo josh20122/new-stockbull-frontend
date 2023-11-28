@@ -116,7 +116,7 @@
         <HomeStakeSynthetics
           v-if="activeMarket == 'C'"
           class="w-full"
-          @cancel="showStakeModal = false"
+          @cancel="stakeModal = false"
         ></HomeStakeSynthetics>
         <HomeStakeBinanceMarket
           v-if="activeMarket == 'A'"
@@ -179,6 +179,7 @@ const showStockbullChart = computed(() => {
 const stakeButtonsConfigs = computed(() => {
   let buy = false;
   let sell = false;
+
   let sellLabel = null;
   let buyLabel = null;
   let stake = false;
