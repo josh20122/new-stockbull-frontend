@@ -11,6 +11,7 @@ export default defineNuxtConfig({
   alias: {
     "@utils": fileURLToPath(new URL(".utils", import.meta.url)),
   },
+
   runtimeConfig: {
     public: {
       baseURL: "https://api.stockbull.live/api",
