@@ -1,6 +1,6 @@
 <template>
   <!-- <div class=""></div> -->
-  <div>
+  <div v-if="botHistory.wallets[0] > 0">
 
     <div class="w-full flex p-2 justify-end ">
 
@@ -28,9 +28,9 @@
     </div>
   </div>
 
-  <!-- <div v-else class=" w-full text-center pt-5">
+  <div v-else class=" w-full text-center pt-5">
     SORRY, YOU DO NOT HAVE AN ACTIVE BOT IN THIS MARKET
-  </div> -->
+  </div>
 </template>
 <script setup>
 import axios from "axios";
