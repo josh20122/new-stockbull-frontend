@@ -14,8 +14,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL: "http://localhost:8000/api",
-      // baseURL: "https://api.stockbull.live/api",
+      // baseURL: "http://localhost:8000/api",
+      baseURL: "https://api.stockbull.live/api",
       pusher: {
         broadcaster: "pusher",
 
