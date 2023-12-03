@@ -56,7 +56,8 @@
                         </li>
                         <li>
 
-                            5. You will need at least 20% of your total stake, which is (Get 20% * total stake) more as the
+                            5. You will need at least 20% of your total stake, which is {{ botHistory.stake * 0.2 }} more as
+                            the
                             transfer
                             fee of the following market. This fee must be in your account balance.
                         </li>
@@ -105,6 +106,8 @@ const submitForm = () => {
         console.log(err.response);
     })
 }
+
+const botHistory = useBotDetails();
 
 const activestockbullChart = useActiveStockbullMarket();
 

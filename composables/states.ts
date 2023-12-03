@@ -53,6 +53,7 @@ export const useBotDetails = () => useState('useBotDetails', () => {
     activities: [],
     stake_amount: 0,
     wallets: [0, 0],
+    stake: 0,
   }
 })
 

@@ -1,6 +1,6 @@
 <template>
   <!-- <div class=""></div> -->
-  <div v-if="botHistory.wallets[0] > 0">
+  <div v-if="botHistory.stake > 0">
 
     <div class="w-full flex p-2 justify-end ">
 
