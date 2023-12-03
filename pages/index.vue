@@ -16,7 +16,7 @@
 
             <ClientOnly>
               <SharedContainer class="w-full" :padding="isSmallScreen">
-                <div class="flex gap-x-4 border-b border-gray-500 pb-2" v-if="isSmallScreen">
+                <div class="flex gap-x-4 border-b border-gray-500 pb-2" v-if="activeMarket == 'C'">
                   <div @click="chartView = true" class="cursor-pointer"
                     :class="chartView ? 'text-yellow-600' : 'text-white'">
                     Chart
@@ -26,15 +26,13 @@
                     History
                   </div>
                 </div>
-                <ChartsStockbullChart v-if="
-                  activeMarket == 'C' && chartView && renderStockbullChart
-                "></ChartsStockbullChart>
+                <ChartsStockbullChart v-if="activeMarket == 'C' && chartView && renderStockbullChart
+                  "></ChartsStockbullChart>
 
                 <HomeStockbullBotHistory v-if="activeMarket == 'C' && !chartView && rerenderBotHistory">
                 </HomeStockbullBotHistory>
-                <ChartsTradingViewWidget v-if="
-                  chartView && (activeMarket == 'B' || activeMarket == 'A')
-                "></ChartsTradingViewWidget>
+                <ChartsTradingViewWidget v-if="chartView && (activeMarket == 'B' || activeMarket == 'A')
+                  "></ChartsTradingViewWidget>
                 <HomeArbitrageTradeHistory :title="false" v-if="isSmallScreen && !chartView && activeMarket != 'C'"
                   class="basis-2/4"></HomeArbitrageTradeHistory>
               </SharedContainer>

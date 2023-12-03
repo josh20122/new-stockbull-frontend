@@ -7,6 +7,7 @@ import {
 import { setStockbullBotDetails } from '@utils/utilities'
 
 import { setStockbullProfits } from "../.utils/utilities";
+import { getItem } from "~/.utils/localStorage";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook("app:beforeMount", () => {

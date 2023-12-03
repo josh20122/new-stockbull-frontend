@@ -22,3 +22,11 @@ export const setStockbullBotDetails = () => {
     botDetails.value = response.data
   });
 }
+
+export const handleStockbullNextPayment = () => {
+  const nextPayment = useStockbullNextPayment();
+
+  axios.get("/next-payment").then((response) => {
+    nextPayment.value = response.data * 60
+  });
+}

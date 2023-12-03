@@ -1,10 +1,16 @@
 export const useTradingviewSymbol = () => useState("symbol", () => "BTCUSD");
+
 export const useAuthenticated = () => useState("isAuthenticated", () => true);
+
 export const useMarkets = () => useState("market", () => "A");
+
 export const useSymbols = () => useState("useSymbols", () => []);
+
 export const useUser = () => useState("useUser", () => []);
+
 export const useStockbullBotHistory = () =>
   useState("useStockbullBotHistory", () => []);
+
 export const useStockbullProfits = () =>
   useState("useStockbullProfits", () => {
     return {
@@ -20,6 +26,8 @@ export const useActiveStockbullMarket = () =>
       real_name: "november",
     };
   });
+
+
 export const useStockbullAccounts = () =>
   useState("useStockbullAccounts", () => []);
 
@@ -44,6 +52,15 @@ export const useBotDetails = () => useState('useBotDetails', () => {
   return {
     activities: [],
     stake_amount: 0,
-    wallets: [30, 20],
+    wallets: [0, 0],
   }
 })
+
+export const useStockbullCountdown = () => useState('useStockbullCountdown', () => {
+  return {
+    timer: 0,
+    percentage: 0,
+  }
+})
+
+export const useStockbullNextPayment = () => useState('useStockbullNextPayment', () => 0);

@@ -83,9 +83,11 @@ export const axiosInterceptor = () => {
     function (response) {
       return response;
     },
+
     function (error) {
       if (error.response.status == 401) {
         logout();
+        navigateTo('/auth/login')
       }
 
       return Promise.reject(error);
@@ -97,7 +99,7 @@ export const logout = () => {
   localStorage.removeItem("token");
   let isAuthenticated = useAuthenticated();
   isAuthenticated.value = false;
-  let guestRoutes = ["/", "/news"];
+  let guestRoutes = ["/", "/articles", '/test'];
 
   const route = useRoute();
   if (!guestRoutes.includes(route.fullPath)) {
@@ -107,9 +109,13 @@ export const logout = () => {
 };
 
 export const login = (token) => {
-  localStorage.setItem("token", token);
+  if (token) {
+    localStorage.setItem("token", token);
+  }
+
   let isAuthenticated = useAuthenticated();
   isAuthenticated.value = true;
+
   setAxiosConfigurations();
   authenticateUser();
   setStockbullProfits();
