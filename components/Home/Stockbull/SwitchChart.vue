@@ -15,13 +15,6 @@
                         <label class=" text-sm" for="">From</label>
                         <USelect label="From" name="sssssss" id="countries" :options="Charts" option-attribute="name"
                             value-attribute="value" v-model="form.from" :disabled="true" />
-                        <!-- <div>
-
-                            <div v-if="errors" class="text-[10px] text-red-600">
-                                <div v-for="(error, index) in errors" v-text="error" :key="index"></div>
-                            </div>
-                        </div> -->
-
                     </div>
                     <div>
 
@@ -70,7 +63,6 @@
                     <UButton @click="modalIsOpen = false" color="red" variant="solid">CANCEL</UButton>
                     <UButton @click="submitForm()" variant="solid">CONFIRM SHIFT</UButton>
                 </div>
-                <!-- <Placeholder class="h-8" /> -->
             </template>
         </UCard>
 

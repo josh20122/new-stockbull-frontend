@@ -11,6 +11,13 @@
         <AuthLineTextInput v-model="form.password" placeholder="" label="Password" @keyup.enter="submitForm()"
           type="password" :errors="formErrors.password"></AuthLineTextInput>
       </div>
+      <div class=" text-end text-blue-600 text-sm pt-3">
+        <nuxt-link to="/auth/forgotpassword">
+
+          Forgot password?
+        </nuxt-link>
+
+      </div>
       <div class="pt-4 flex justify-center rounded-sm w-full">
         <UButton color="yellow" block variant="solid" class="text-white rounded-xs" @click="submitForm()">
           Sign In

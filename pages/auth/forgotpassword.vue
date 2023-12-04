@@ -1,23 +1,72 @@
 <template>
-  <SharedNavBar></SharedNavBar>
-  <div class="flex w-full h-screen place-items-center px-2 bg-black">
-    <SharedContainer class="w-full mx-auto rounded-md md:max-w-[500px]">
-      <div class="text-center">LOGIN</div>
-      <div class="inline-flex w-full pag-2 flex-col">
-        <SharedTextInput placeholder="Email"></SharedTextInput>
+  <div class="flex flex-col justify-center w-full h-screen place-items-center px-2 bg-white">
+    <div class="pb-5 text-black text-3xl flex gap-x-3 font-mono font-semibold">
+      <img class="h-8" src="/logo.png" alt="" /> STOCKBULL
+    </div>
+    <SharedContainer class="w-full mx-auto rounded-sm md:max-w-[500px] bg-[#e9f1fe] border border-gray-400 px-6 py-16">
+      <div class="grid w-full gap-3 flex-col">
+        <div class=" text-center font-semibold text-gray-900  uppercase">Forgot Password</div>
 
-        <SharedTextInput placeholder="Password"></SharedTextInput>
-        <div class="pt-4 w-full">
-          <button class="btn btn-secondary text-white btn-sm w-full">
-            Register
-          </button>
+        <div className="text-sm text-start pb-2 text-gray-900">
+          Forgot your password? No problem, just let us know your email
+          address and we will email you a password reset code that will allow
+          you to set a new password.
+        </div>
+        <AuthLineTextInput v-model="form.email" :errors="formErrors.email" @keyup.enter="submitForm()" label="Email"
+          placeholder=""></AuthLineTextInput>
+
+        <!-- <AuthLineTextInput v-model="form.password" placeholder="" label="Password" @keyup.enter="submitForm()"
+          type="password" :errors="formErrors.password"></AuthLineTextInput> -->
+      </div>
+      <div class=" text-end text-blue-600 text-sm pt-3">
+        <!-- <nuxt-link to="/auth/forgotpassword">
+
+          Forgot password?
+        </nuxt-link> -->
+
+      </div>
+      <div class="pt-4 flex justify-center rounded-sm w-full">
+        <UButton color="yellow" block variant="solid" class="text-white rounded-xs" @click="submitForm()">
+          Send Mail
+        </UButton>
+      </div>
+      <div class="text-center text-xs pt-4 text-gray-800">
+        <div>
+          Already have an account?
+          <span class="text-blue-500">
+            <NuxtLink to="/auth/register"> Sign Up </NuxtLink>
+          </span>
         </div>
       </div>
     </SharedContainer>
   </div>
 </template>
 <script setup>
+import axios from 'axios';
+
 definePageMeta({
   middleware: "guest",
 });
+
+const form = ref({
+  email: null,
+})
+const formErrors = ref({
+
+});
+
+const submitForm = () => {
+  axios
+    .post("/auth/password-reset-code", form.value)
+    .then((response) => {
+      navigateTo('/auth/reset-password')
+      localStorage.setItem('email', form.value.email)
+    })
+    .catch((err) => {
+
+      if (err.response.status == 422) {
+        formErrors.value = err.response.data
+      }
+    });
+}
 </script>
