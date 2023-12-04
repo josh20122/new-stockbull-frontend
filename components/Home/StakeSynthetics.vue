@@ -22,8 +22,8 @@ import { ref, watch, defineEmits } from "vue";
 import { setStockbullProfits } from "~/.utils/utilities";
 const isAuthenticated = useAuthenticated();
 const emit = defineEmits(["cancel"]);
-const stake = ref(10);
-const target = ref(10 * 3);
+const stake = ref(50);
+const target = ref(50 * 3);
 const activeMarket = useMarkets();
 const activeStockbullSymbol = useActiveStockbullMarket();
 const activeAccount = useActiveAccount();
@@ -39,9 +39,9 @@ const activateStake = () => {
     return;
   }
 
-  if (stake.value < 10) {
+  if (stake.value < 50) {
     toast.add({
-      title: `Failed, minimum stake amount is USD10.`,
+      title: `Failed, minimum stake amount is 50USD.`,
       color: "teal",
     });
 
