@@ -5,24 +5,41 @@
       <div class="md:col-span-8">
         <div className="   px-2">
           <div className="overflow-hidden h-fit rounded-md">
-            <img className=" h-44 md:h-64 w-full hover:scale-105 duration-500 transition-all" :src="article.image"
-              alt="" />
+            <img
+              className=" h-44 md:h-64 w-full hover:scale-105 duration-500 transition-all"
+              :src="article.image"
+              alt=""
+            />
           </div>
-          <div class="bg-[#121318] px-2 rounded-md mt-4 h-fit">
+          <div
+            class="bg-[#121318] px-2 rounded-md mt-4 h-fit w-full flex flex-col"
+          >
             <div className="font-semibold text-lg pt-4 pb-10  ">
               {{ article.title }}
             </div>
-            <div className=" prose  prose-a:text-blue-600 pb-20 lg:prose-xl " v-html="article.content"></div>
+            <div
+              className=" prose  prose-a:text-blue-600 pb-20 lg:prose-xl  text-white w-full "
+              v-html="article.content"
+            ></div>
           </div>
         </div>
       </div>
       <div class="w-full md:col-span-4 md:flex flex-col gap-y-4 px-2">
         <div class="text-3xl font-semibold pb-4">New Articles</div>
         <div class="h-screen overflow-y-scroll">
-          <NuxtLink v-for="(item, index) in news.data" :to="`/articles/${item.id}`">
-            <SharedContainer className=" rounded-md overflow-hidden w-full text-xs bg-[#121318]">
+          <NuxtLink
+            v-for="(item, index) in news.data"
+            :to="`/articles/${item.id}`"
+          >
+            <SharedContainer
+              className=" rounded-md overflow-hidden w-full text-xs bg-[#121318]"
+            >
               <div className="overflow-hidden h-fit rounded-md">
-                <img className=" h-44 w-full hover:scale-105 duration-500 transition-all" :src="item.image" alt="" />
+                <img
+                  className=" h-44 w-full hover:scale-105 duration-500 transition-all"
+                  :src="item.image"
+                  alt=""
+                />
               </div>
               <div className=" flex  justify-between px-2 pt-2  pb-4">
                 <div className=" font-semibold">{{ item.title }}</div>
@@ -42,7 +59,7 @@
 import { routeLocationKey } from "vue-router";
 const route = useRoute();
 const { data: article } = await useFetch(
-  "https://api.stockbull.live/api/articles/" + route.params.id
+  "https://api.stockbull.live/api/article/" + route.params.id
 );
 
 const { data: news } = await useFetch(
