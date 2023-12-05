@@ -5,7 +5,7 @@
       <div class="flex flex-col gap-y-2">
         <SharedTextInput
           class="  "
-          label="Amount to deposit"
+          label="Amount to withdraw"
           v-model="form.amount"
           :errors="formErrors.amount"
           placeholder=" Enter amount in USD"
