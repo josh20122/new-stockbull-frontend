@@ -206,7 +206,22 @@ const submitForm = () => {
       }
     })
     .catch((err) => {
-      formErrors.value = err.response.data;
+      if (!err.response) {
+        return;
+      }
+
+      if (err.response.status == 433) {
+        toast.add({
+          title: err.response.data,
+          timeout: 3000,
+          id: "withdraw",
+          color: "red",
+        });
+      }
+
+      if (err.response.status == 422) {
+        formErrors.value = err.response.data;
+      }
     });
 };
 

@@ -206,6 +206,10 @@ const submitForm = () => {
       }
     })
     .catch((err) => {
+      if (!err.response) {
+        return;
+      }
+
       if (err.response.status == 433) {
         toast.add({
           title: err.response.data,
@@ -215,7 +219,9 @@ const submitForm = () => {
         });
       }
 
-      formErrors.value = err.response.data;
+      if (err.response.status == 422) {
+        formErrors.value = err.response.data;
+      }
     });
 };
 
