@@ -3,6 +3,19 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   // css: ["~/assets/css/main.css"],
   modules: ["@nuxt/ui"],
+  app: {
+    head: {
+      title: "STOCKBULLCA",
+      link: [{ rel: "icon", type: "image/x-icon", href: "/icon.ico" }],
+      meta: [
+        {
+          name: "description",
+          content:
+            "Unlock the power of intelligent trading with StockBull AI, your trusted broker for next-level investment strategies. Harness cutting-edge artificial intelligence to make informed decisions, maximize profits, and navigate the dynamic world of stock trading. Elevate your trading experience with StockBull AI's innovative solutions, shaping the future of intelligent investing.",
+        },
+      ],
+    },
+  },
   ssr: false,
   colorMode: {
     preference: "dark",

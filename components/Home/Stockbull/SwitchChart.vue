@@ -64,8 +64,11 @@
             <li>4. You will start earning from (get the new market) market.</li>
             <li>
               5. You will need at least 20% of your total stake, which is
-              {{ botHistory.stake_amount * 0.2 }} more as the transfer fee of
-              the following market. This fee must be in your account balance.
+              <span class="text-yellow-500 font-semibold">
+                ${{ parseFloat(botHistory.stake_amount * 0.2) }}
+              </span>
+              more as the transfer fee of the following market. This fee must be
+              in your account balance.
             </li>
           </ol>
         </div>
