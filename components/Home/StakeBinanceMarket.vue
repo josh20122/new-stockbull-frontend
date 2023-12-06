@@ -34,8 +34,8 @@ import { setUserArbitrageWallets } from "~/.utils/utilities";
 let activeSymbolData = useActiveTradingViewSymbol();
 const form = ref({
   symbol: activeSymbolData.value.symbol,
-  stake: 200,
-  amountInCrypto: '200BTC'
+  stake: 0,
+  amountInCrypto: ''
 });
 
 const toast = useToast();
