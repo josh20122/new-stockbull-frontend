@@ -30,3 +30,10 @@ export const handleStockbullNextPayment = () => {
     nextPayment.value = response.data * 60
   });
 }
+
+export const setUserArbitrageWallets = () => {
+  let wallet = useUserArbitrageWallet();
+  axios.get('/user-arbitrage-markets').then(response => {
+    wallet.value = response.data;
+  })
+}

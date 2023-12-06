@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getItem, setItem } from "./localStorage";
 import { Container } from "postcss";
-import { setStockbullBotDetails, setStockbullProfits } from "./utilities";
+import { setStockbullBotDetails, setStockbullProfits, setUserArbitrageWallets } from "./utilities";
 
 export const setAxiosConfigurations = () => {
   const activeStockbullChart = useActiveStockbullMarket();
@@ -120,4 +120,5 @@ export const login = (token) => {
   authenticateUser();
   setStockbullProfits();
   setStockbullBotDetails()
+  setUserArbitrageWallets();
 };

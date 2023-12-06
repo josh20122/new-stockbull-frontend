@@ -1,49 +1,27 @@
 <template>
-  <SharedContainer
-    v-if="!isSmallScreen && !doNotShow"
-    :style="`height:${screenHeight * 0.5}px`"
-    class="overflow-scroll"
-  >
+  <SharedContainer v-if="!isSmallScreen && !doNotShow" :style="`height:${screenHeight * 0.5}px`" class="overflow-scroll">
     <div>
       <div class="sticky top-0 bg-[#121318] w-full">
-        <UInput
-          v-model="search"
-          name="search"
-          placeholder="Search..."
-          icon="i-heroicons-magnifying-glass-20-solid"
-          autocomplete="off"
-          :ui="{ icon: { trailing: { pointer: '' } } }"
-        >
+        <UInput v-model="search" name="search" placeholder="Search..." icon="i-heroicons-magnifying-glass-20-solid"
+          autocomplete="off" :ui="{ icon: { trailing: { pointer: '' } } }">
           <template #trailing>
-            <UButton
-              v-show="search !== ''"
-              color="gray"
-              variant="link"
-              icon="i-heroicons-x-mark-20-solid"
-              :padded="false"
-              @click="search = ''"
-            />
+            <UButton v-show="search !== ''" color="gray" variant="link" icon="i-heroicons-x-mark-20-solid" :padded="false"
+              @click="search = ''" />
           </template>
         </UInput>
       </div>
 
       <div class="pt-2">
-        <div
-          class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
-          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
-          @click="setActiveKey(index, symbol)"
-          v-for="(symbol, index) in menuSymbols"
-        >
+        <div class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
+          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''" @click="setActiveKey(index, symbol)"
+          v-for="(symbol, index) in menuSymbols">
           <div class="flex gap-2">
             <div>{{ symbol.symbol }}</div>
           </div>
           <div class="justify-self-end">
             {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
           </div>
-          <div
-            class="justify-self-end col-span-2"
-            :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
-          >
+          <div class="justify-self-end col-span-2" :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'">
             {{ symbol.changePercentage }}
           </div>
         </div>
@@ -52,71 +30,43 @@
   </SharedContainer>
 
   <USlideover v-model="modalIsOpen" v-if="isSmallScreen">
-    <UCard
-      class="flex flex-col flex-1"
-      :ui="{
-        body: { base: 'flex-1' },
-        ring: '',
-        divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-      }"
-    >
+    <UCard class="flex flex-col flex-1" :ui="{
+      body: { base: 'flex-1' },
+      ring: '',
+      divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+    }">
       <template #header>
-        <UInput
-          v-model="search"
-          name="q"
-          placeholder="Search..."
-          icon="i-heroicons-magnifying-glass-20-solid"
-          autocomplete="off"
-          :ui="{ icon: { trailing: { pointer: '' } } }"
-        >
+        <UInput v-model="search" name="q" placeholder="Search..." icon="i-heroicons-magnifying-glass-20-solid"
+          autocomplete="off" :ui="{ icon: { trailing: { pointer: '' } } }">
           <template #trailing>
-            <UButton
-              v-show="search !== ''"
-              color="gray"
-              variant="link"
-              icon="i-heroicons-x-mark-20-solid"
-              :padded="false"
-              @click="search = ''"
-            />
+            <UButton v-show="search !== ''" color="gray" variant="link" icon="i-heroicons-x-mark-20-solid" :padded="false"
+              @click="search = ''" />
           </template>
         </UInput>
         <div class="flex pt-2 gap-x-3">
-          <div
-            :class="buy || activeMarket == 'A' ? 'bg-yellow-700' : ''"
-            @click="buy = true"
-            class="px-2 cursor-pointer bg-black w-fit text-white rounded-md"
-          >
+          <div :class="buy || activeMarket == 'A' ? 'bg-yellow-700' : ''" @click="buy = true"
+            class="px-2 cursor-pointer bg-black w-fit text-white rounded-md">
             Buy
           </div>
 
-          <div
-            @click="buy = false"
-            v-if="activeMarket == 'B'"
-            class="px-2 cursor-pointer bg-black rounded-md text-white w-fit"
-            :class="!buy ? 'bg-yellow-700' : ''"
-          >
+          <div @click="buy = false" v-if="activeMarket == 'B'"
+            class="px-2 cursor-pointer bg-black rounded-md text-white w-fit" :class="!buy ? 'bg-yellow-700' : ''">
             Sell
           </div>
         </div>
       </template>
 
       <div class="pt-2 py-20 max-h-screen overflow-scroll">
-        <div
-          class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
-          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''"
-          @click="setActiveKey(index, symbol)"
-          v-for="(symbol, index) in menuSymbols"
-        >
+        <div class="py-1 px-1 w-full grid grid-cols-2 text-white hover:cursor-pointer"
+          :class="activeKey == index ? 'bg-yellow-600 rounded-md' : ''" @click="setActiveKey(index, symbol)"
+          v-for="(symbol, index) in menuSymbols">
           <div class="flex gap-2">
             <div>{{ symbol.symbol }}</div>
           </div>
           <div class="justify-self-end">
             {{ parseFloat(symbol.price * getActiveConstant).toFixed(3) }}USD
           </div>
-          <div
-            class="justify-self-end col-span-2"
-            :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'"
-          >
+          <div class="justify-self-end col-span-2" :class="symbol.change < 0 ? 'text-red-600' : 'text-green-600'">
             {{ symbol.changePercentage }}
           </div>
         </div>
@@ -138,6 +88,8 @@ const props = defineProps({
     default: false,
   },
 });
+
+const arbitrageConstants = useArbitrageConstants()
 
 const modalIsOpen = ref(props.showModal);
 
@@ -166,7 +118,7 @@ const setTheValues = computed(() => {
 const handleArbitrageConstants = () => {
   setAxiosConfigurations();
   axios.get("/arbitrage-settings").then((response) => {
-    constant.value = response.data;
+    arbitrageConstants.value = response.data;
   });
 };
 
@@ -174,9 +126,9 @@ const getActiveConstant = computed(() => {
   // return 1;
   if (activeMarket.value == "B") {
     if (buy.value) {
-      return constant.value.cza2;
+      return arbitrageConstants.value.cza2;
     } else {
-      return constant.value.cza;
+      return arbitrageConstants.value.cza;
     }
   } else {
     return 1;

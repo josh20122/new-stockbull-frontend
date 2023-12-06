@@ -6,27 +6,36 @@
           <div class="cursor-pointer" @click="buy = false" :class="!buy ? ' text-yellow-500' : ''">
             Sell
           </div>
-          <div class="cursor-pointer text-gray-300">
+          <!-- <div class="cursor-pointer text-gray-300">
             Buy
+          </div> -->
+        </div>
+
+        <div v-if="wallets.length <= 0" class=" text-xs text-red-600  text-center">You do not have an active asset, please
+          buy one in
+          Market A.</div>
+        <label for="" class="text-xs">Symbol</label>
+        <!-- {{ symbols }} -->
+        <div>
+          <USelect id="symbol" :options="wallets" option-attribute="symbol" value-attribute="symbol"
+            v-model="form.symbol" />
+          <!-- <div class="flex flex-col"> -->
+          <div v-if="formErrors.symbol" class="text-[10px] text-red-600">
+            <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
           </div>
         </div>
-        <label for="" class="text-xs">Symbol</label>
-        <USelect id="countries" :options="symbols" option-attribute="symbol" value-attribute="symbol"
-          v-model="form.symbol" />
-        <!-- <option v-for="(item, index) in symbols" :value="item.s">
-            {{ item.s }}
-          </option> -->
+        <!-- </div> -->
 
-        <SharedTextInput label="Amount to buy" v-model="target" placeholder="Enter your stake amount" hint="USD">
+        <SharedTextInput label="Amount to buy" v-model="form.amount" placeholder="Enter your stake amount" hint="USD"
+          :errors="formErrors.amount">
         </SharedTextInput>
 
-        <SharedTextInput label="You will get" hint="Please note that amount may change during the purchase"
-          placeholder="Enter your stake amount" :model-value="'15f'" readonly="true"></SharedTextInput>
-        <div>
+        <!-- {{ totalAmount }} -->
 
-          <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')"
-            :settings="stakeButtonsConfigs"></SharedStakeButtons>
-        </div>
+        <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
+          readonly="true"></SharedTextInput>
+        <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')" @buy="submitForm()"
+          :settings="stakeButtonsConfigs"></SharedStakeButtons>
       </div>
     </div>
   </SharedContainer>
@@ -42,23 +51,40 @@ const props = defineProps({
   },
 });
 
+const arbitrageConstants = useArbitrageConstants()
+
 const emit = defineEmits('cancel')
 
 const form = ref({
   symbol: activeSymbolData.value.symbol,
+  amount: null,
+  totalProfit: null,
+});
+
+const toast = useToast();
+const totalAmount = computed(() => {
+  return arbitrageConstants.value.cza * form.value.amount + 'USD';
 });
 
 const submitForm = () => {
   axios.post('/sell-arbitrage').then(response => {
-    console.log('done');
+    toast.add({ title: 'Success' });
+    emit('cancel');
+  }).catch(err => {
+    if (err.response.status == 422) {
+      formErrors.value = err.response.data;
+    }
   })
 }
+
+const wallets = useUserArbitrageWallet();
 
 const buy = ref(props.buy);
 
 const symbols = useSymbols();
 const stake = ref(10);
 const target = ref(10 * 3);
+
 watch(stake, (newval, oldval) => {
   target.value = newval * 3;
 });
@@ -66,6 +92,8 @@ watch(stake, (newval, oldval) => {
 const isSmallScreen = computed(() => {
   return document.documentElement.clientWidth < 768;
 });
+
+const formErrors = ref({});
 
 
 const stakeButtonsConfigs = computed(() => {

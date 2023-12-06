@@ -65,3 +65,14 @@ export const useStockbullCountdown = () => useState('useStockbullCountdown', () 
 })
 
 export const useStockbullNextPayment = () => useState('useStockbullNextPayment', () => 0);
+
+export const useArbitrageConstants = () => useState('useArbitrageConstants', () => {
+  return {
+    cza: 20,
+    cza2: 20,
+  }
+})
+
+export const useUserArbitrageWallet = () => useState('useUserArbitrageWallet', () => {
+  return [];
+})

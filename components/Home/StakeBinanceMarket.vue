@@ -5,7 +5,7 @@
         <label for="" class="text-xs">Symbol</label>
         <!-- {{ symbols }} -->
         <div>
-          <USelect id="countries" :disabled="true" :options="symbols" option-attribute="symbol" value-attribute="symbol"
+          <USelect id="countries" :options="symbols" option-attribute="symbol" value-attribute="symbol"
             v-model="form.symbol" />
           <!-- <div class="flex flex-col"> -->
           <div v-if="formErrors.symbol" class="text-[10px] text-red-600">
@@ -17,7 +17,6 @@
         <SharedTextInput label="Amount to buy" v-model="form.stake" placeholder="Enter your stake amount" hint="USD"
           :errors="formErrors.stake">
         </SharedTextInput>
-        {{ form.amountInBTC }}
 
         <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="form.amountInCrypto"
           readonly="true"></SharedTextInput>
@@ -31,6 +30,7 @@
 <script setup>
 import axios from "axios";
 import { ref, watch } from "vue";
+import { setUserArbitrageWallets } from "~/.utils/utilities";
 let activeSymbolData = useActiveTradingViewSymbol();
 const form = ref({
   symbol: activeSymbolData.value.symbol,
@@ -56,6 +56,7 @@ const submitForm = () => {
     console.log(response.data);
     toast.add({ title: 'Success' });
     emit('cancel');
+    setUserArbitrageWallets()
   }).catch(err => {
     if (!err.response.status) {
       return;
