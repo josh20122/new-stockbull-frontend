@@ -5,7 +5,7 @@
         <label for="" class="text-xs">Symbol</label>
         <!-- {{ symbols }} -->
         <div>
-          <USelect id="countries" :options="symbols" option-attribute="symbol" value-attribute="symbol"
+          <USelect id="countries" :disabled="true" :options="symbols" option-attribute="symbol" value-attribute="symbol"
             v-model="form.symbol" />
           <!-- <div class="flex flex-col"> -->
           <div v-if="formErrors.symbol" class="text-[10px] text-red-600">
@@ -38,6 +38,8 @@ const form = ref({
   amountInCrypto: '200BTC'
 });
 
+const toast = useToast();
+
 const emit = defineEmits('cancel')
 
 const symbols = useSymbols();
@@ -50,15 +52,17 @@ const submitForm = () => {
 
   // console.log('stake');
   // return;
-  axios.post('/stake-arbitrage').then(response => {
+  axios.post('/stake-arbitrage', form.value).then(response => {
     console.log(response.data);
+    toast.add({ title: 'Success' });
+    emit('cancel');
   }).catch(err => {
     if (!err.response.status) {
       return;
     }
 
     if (err.response.status == 422) {
-      console.log(err.response.data)
+      // console.log(err.response.data)
 
       formErrors.value = err.response.data
     }

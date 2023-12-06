@@ -82,7 +82,7 @@
 
       <AuthGuestButtons v-if="!isAuthenticated"></AuthGuestButtons>
 
-      <SharedStakeButtons v-if="isAuthenticated" @buy="stakeModal = true" @stake="handleStake()"
+      <SharedStakeButtons v-if="isAuthenticated" @sell="handleStake()" @buy="stakeModal = true" @stake="handleStake()"
         :settings="stakeButtonsConfigs">
         <!-- <SharedStakeButtons v-if="isAuthenticated" @stake="handleStake()" :settings="stakeButtonsConfigs"> -->
       </SharedStakeButtons>

@@ -3,11 +3,11 @@
     <div class="inline-flex flex-col gap-y-10 w-full">
       <div class="inline-flex flex-col gap-y-1">
         <div class="flex gap-x-4 text-xs border-b pb-1 select-none border-gray-500">
-          <div class="cursor-pointer" @click="buy = true" :class="buy ? ' text-yellow-500' : ''">
-            Buy
-          </div>
           <div class="cursor-pointer" @click="buy = false" :class="!buy ? ' text-yellow-500' : ''">
             Sell
+          </div>
+          <div class="cursor-pointer text-gray-300">
+            Buy
           </div>
         </div>
         <label for="" class="text-xs">Symbol</label>
@@ -33,6 +33,7 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref, watch } from "vue";
 let activeSymbolData = useActiveTradingViewSymbol();
 const props = defineProps({
@@ -46,6 +47,13 @@ const emit = defineEmits('cancel')
 const form = ref({
   symbol: activeSymbolData.value.symbol,
 });
+
+const submitForm = () => {
+  axios.post('/sell-arbitrage').then(response => {
+    console.log('done');
+  })
+}
+
 const buy = ref(props.buy);
 
 const symbols = useSymbols();
@@ -61,7 +69,7 @@ const isSmallScreen = computed(() => {
 
 
 const stakeButtonsConfigs = computed(() => {
-  let buy = false;
+  let buy = true;
   let sell = false;
   let sellLabel = null;
   let buyLabel = null;
@@ -71,9 +79,9 @@ const stakeButtonsConfigs = computed(() => {
     buy: buy,
     sell: sell,
     sellLabel: sellLabel,
-    buyLabel: "STAKE",
+    buyLabel: "SELL",
     cancel: isSmallScreen.value,
-    stake: true,
+    stake: false,
   };
 });
 </script>
