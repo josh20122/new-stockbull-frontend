@@ -90,7 +90,14 @@ const setActiveMarket = (value) => {
   console.log(value);
   activeMarket.value = value;
 };
+
+const screenWidth = ref(460);
+
+onBeforeMount(() => {
+  screenWidth.value = document.documentElement.clientWidth;
+});
+
 const isSmallScreen = () => {
-  return window.innerWidth < 768;
+  return screenWidth < 768;
 };
 </script>
