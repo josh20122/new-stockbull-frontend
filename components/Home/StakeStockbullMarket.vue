@@ -24,15 +24,26 @@
             <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
           </div>
         </div>
-
-        <SharedTextInput :label="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
-          v-if="selectedSymbolRealTimeData" v-model="form.amount"
-          :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
-          :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
-          :errors="formErrors.amount">
-        </SharedTextInput>
-        <!-- {{ selectedSymbolData }} -->
-        <!-- {{ selectedSymbolRealTimeData.c }} -->
+        <div>
+          <label v-text="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+            class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
+          </label>
+          <UInput v-if="selectedSymbolRealTimeData" v-model="form.amount" autocomplete="off"
+            :ui="{ icon: { trailing: { pointer: '' } } }"
+            :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+            :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
+            :errors="formErrors.amount">
+            <template #trailing>
+              <!-- <div class=" " @click="console.log('djkdklkn')">
+                ALL
+              </div> -->
+              <UButton :color="'yellow'" variant="link"
+                @click=" form.amount = selectedSymbolData.profit / selectedSymbolRealTimeData.c" :padded="false"
+                label="ALL">
+              </UButton>
+            </template>
+          </UInput>
+        </div>
 
         <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
           v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
