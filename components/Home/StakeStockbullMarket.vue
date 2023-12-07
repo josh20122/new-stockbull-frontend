@@ -11,7 +11,7 @@
         <div v-if="wallets.length <= 0" class=" text-xs text-red-600  text-center">You do not have an active asset, please
           buy one in
           Market A.</div>
-        <div v-else>
+        <div v-else class=" w-full">
 
           <label for="" class="text-xs">Symbol</label>
           <!-- {{ wallets }} -->
@@ -44,7 +44,7 @@
           </div>
 
           <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
-            v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
+            class=" w-full" v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
           <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')" @buy="submitForm()"
             :settings="stakeButtonsConfigs"></SharedStakeButtons>
         </div>
