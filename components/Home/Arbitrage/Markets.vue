@@ -577,9 +577,7 @@ onMounted(() => {
     let socketData = JSON.parse(event.data);
     socketData.forEach((element) => {
       const index = symbols.data.findIndex((obj) => obj.s === element.s);
-
       if (element.s.includes('USDT')) {
-
         if (index !== -1) {
           symbols.data[index] = element;
           allSymbols.value = symbols.data

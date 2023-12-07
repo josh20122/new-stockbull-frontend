@@ -24,16 +24,18 @@
             <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
           </div>
         </div>
-        <!-- </div> -->
 
-        <SharedTextInput label="Amount to buy" v-model="form.amount" placeholder="Enter your stake amount" hint="USD"
+        <SharedTextInput :label="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+          v-if="selectedSymbolRealTimeData" v-model="form.amount"
+          :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+          :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
           :errors="formErrors.amount">
         </SharedTextInput>
-
-        <!-- {{ totalAmount }} -->
+        <!-- {{ selectedSymbolData }} -->
+        <!-- {{ selectedSymbolRealTimeData.c }} -->
 
         <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
-          readonly="true"></SharedTextInput>
+          v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
         <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')" @buy="submitForm()"
           :settings="stakeButtonsConfigs"></SharedStakeButtons>
       </div>
@@ -50,6 +52,16 @@ const props = defineProps({
     default: true,
   },
 });
+const symbols = useSymbols();
+
+const selectedSymbolData = computed(() => {
+  return wallets.value.filter((item) => item.symbol == form.value.symbol)[0]
+})
+
+
+const selectedSymbolRealTimeData = computed(() => {
+  return symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol))[0] ?? null
+})
 
 const arbitrageConstants = useArbitrageConstants()
 
@@ -63,7 +75,13 @@ const form = ref({
 
 const toast = useToast();
 const totalAmount = computed(() => {
-  return arbitrageConstants.value.cza * form.value.amount + 'USD';
+  // return selectedSymbolRealTimeData.c;
+  // return selectedSymbolRealTimeData.value.c;
+  if (selectedSymbolRealTimeData.value) {
+    return arbitrageConstants.value.cza * form.value.amount * selectedSymbolRealTimeData.value.c + 'USD';
+  } else {
+    return 'loading...'
+  }
 });
 
 const submitForm = () => {
@@ -81,7 +99,6 @@ const wallets = useUserArbitrageWallet();
 
 const buy = ref(props.buy);
 
-const symbols = useSymbols();
 const stake = ref(10);
 const target = ref(10 * 3);
 

@@ -409,15 +409,9 @@ const emit = defineEmits('cancel')
 
 const symbols = useSymbols();
 
-watch(symbols, () => {
-  console.log('new sumbol')
-})
-
-
 const formErrors = ref({});
 const submitForm = () => {
   axios.post('/stake-arbitrage', form.value).then(response => {
-    console.log(response.data);
     toast.add({ title: 'Success' });
     emit('cancel');
     setUserArbitrageWallets()
@@ -434,7 +428,6 @@ const submitForm = () => {
 
 
 watch([() => form.value.symbol, () => form.value.amount], () => {
-  // console.log(symbolPrice.value)
   if (selectedSymbolData.value) {
 
     let crypto = selectedSymbolData.value.s.replace('USDT', '');
@@ -446,10 +439,7 @@ watch([() => form.value.symbol, () => form.value.amount], () => {
 
 
 const selectedSymbolData = computed(() => {
-  // console.log(symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol)));
-  // return 20;
   return symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol))[0] ?? null
-
 })
 
 const amount = ref(10);
