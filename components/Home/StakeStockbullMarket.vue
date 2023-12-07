@@ -101,7 +101,7 @@ const totalAmount = computed(() => {
 const submitForm = () => {
   axios.post('/sell-arbitrage', {
     symbol: form.value.symbol,
-    amount: form.value.amount * selectedSymbolRealTimeData.c,
+    amount: form.value.amount * selectedSymbolRealTimeData.value.c,
   }).then(response => {
     toast.add({ title: 'Success' });
     emit('cancel');
