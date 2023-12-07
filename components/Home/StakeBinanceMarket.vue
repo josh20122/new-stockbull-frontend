@@ -433,17 +433,17 @@ const submitForm = () => {
 }
 
 
-watch(() => form.value.amount, () => {
+watch([form.value.symbol, () => form.value.amount], () => {
   // console.log(symbolPrice.value)
-  let crypto = activeSymbolData.value.symbol.replace('USDT', '');
-  form.value.amountInCrypto = form.value.amount / symbolPrice.value + crypto
+  let crypto = selectedSymbolData.value.s.replace('USDT', '');
+  form.value.amountInCrypto = form.value.amount / selectedSymbolData.value.c + crypto
 })
 
 
-const symbolPrice = computed(() => {
+const selectedSymbolData = computed(() => {
   // console.log(symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol)));
   // return 20;
-  return symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol))[0].c ?? null
+  return symbols.value.filter((symbol) => symbol.s.includes(form.value.symbol))[0] ?? null
 
 })
 
