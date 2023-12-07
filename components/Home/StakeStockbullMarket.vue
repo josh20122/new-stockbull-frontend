@@ -41,6 +41,9 @@
             <div v-if="formErrors.amount" class="text-[10px] text-red-600">
               <div v-for="(error, index) in formErrors.amount" v-text="error" :key="index"></div>
             </div>
+            <div v-else class=" text-xs text-yellow-500 text-end"
+              v-text="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`">
+            </div>
           </div>
 
           <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
@@ -96,7 +99,10 @@ const totalAmount = computed(() => {
 });
 
 const submitForm = () => {
-  axios.post('/sell-arbitrage', form.value).then(response => {
+  axios.post('/sell-arbitrage', {
+    symbol: form.value.symbol,
+    amount: form.value.amount * selectedSymbolRealTimeData.c,
+  }).then(response => {
     toast.add({ title: 'Success' });
     emit('cancel');
   }).catch(err => {
