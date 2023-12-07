@@ -24,12 +24,11 @@
             <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
           </div>
         </div>
-        <div>
+        <div v-if="selectedSymbolRealTimeData">
           <label v-text="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
             class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
           </label>
-          <UInput v-if="selectedSymbolRealTimeData" v-model="form.amount" autocomplete="off"
-            :ui="{ icon: { trailing: { pointer: '' } } }"
+          <UInput v-model="form.amount" autocomplete="off" :ui="{ icon: { trailing: { pointer: '' } } }"
             :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
             :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
             :errors="formErrors.amount">
@@ -87,7 +86,8 @@ const form = ref({
 const toast = useToast();
 const totalAmount = computed(() => {
   // return selectedSymbolRealTimeData.c;
-  // return selectedSymbolRealTimeData.value.c;
+  // return selectedSymbolRealTimeData.value.c; Volume
+
   if (selectedSymbolRealTimeData.value) {
     return arbitrageConstants.value.cza * form.value.amount * selectedSymbolRealTimeData.value.c + 'USD';
   } else {

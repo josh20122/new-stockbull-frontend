@@ -19,7 +19,7 @@
             </ClientOnly>
             <ClientOnly>
               <SharedContainer class="w-full" :padding="isSmallScreen">
-                <div class="flex gap-x-4 border-b border-gray-500 pb-2" v-if="activeMarket == 'C'">
+                <div class="flex gap-x-4 border-b border-gray-500 pb-2">
                   <div @click="chartView = true" class="cursor-pointer"
                     :class="chartView ? 'text-yellow-600' : 'text-white'">
                     Chart
@@ -43,6 +43,7 @@
             <!-- </div> -->
           </div>
           <div class="flex gap-2 flex-col md:flex-row">
+            <HomeArbitrageUserArbitrageWallets></HomeArbitrageUserArbitrageWallets>
             <HomeArbitrageOrderBook v-if="isSmallScreen && activeMarket != 'C'" class=""></HomeArbitrageOrderBook>
             <ClientOnly>
               <HomeStockbullBotDetails v-if="activeMarket == 'C' && rerenderBotHistory"></HomeStockbullBotDetails>
@@ -51,11 +52,14 @@
 
             <HomeArbitrageTradeHistory v-if="!isSmallScreen" class="basis-2/4"></HomeArbitrageTradeHistory>
           </div>
+
         </div>
+        <!-- shshkgh -->
         <div class="col-span-4">
           <div class="flex gap-x-2">
             <HomeArbitrageOrderBook v-if="!isSmallScreen" class="basis-2/4"></HomeArbitrageOrderBook>
             <SharedContainer :padding="false" v-if="!isSmallScreen">
+
               <ClientOnly>
                 <HomeStakeSynthetics v-if="activeMarket == 'C'" @cancel="showStakeModal = false"></HomeStakeSynthetics>
               </ClientOnly>
