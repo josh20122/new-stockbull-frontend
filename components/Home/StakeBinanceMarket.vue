@@ -435,8 +435,13 @@ const submitForm = () => {
 
 watch([() => form.value.symbol, () => form.value.amount], () => {
   // console.log(symbolPrice.value)
-  let crypto = selectedSymbolData.value.s.replace('USDT', '');
-  form.value.amountInCrypto = form.value.amount / selectedSymbolData.value.c + crypto
+  if (!selectedSymbolData.value) {
+
+    let crypto = selectedSymbolData.value.s.replace('USDT', '');
+    form.value.amountInCrypto = form.value.amount / selectedSymbolData.value.c + crypto
+  } else {
+    form.value.amountInCrypto = 'loading...'
+  }
 })
 
 
