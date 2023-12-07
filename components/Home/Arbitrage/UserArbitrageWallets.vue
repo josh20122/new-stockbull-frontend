@@ -26,13 +26,14 @@ const symbols = useSymbols();
 
 const items = computed(() => {
     if (symbols.value.length > 0) {
-
         return arbitrageWallets.value.map((item) => {
             let realtimeSymbol = symbols.value.filter((symbol) => symbol.s.includes(item.symbol))[0];
-            return {
-                symbol: item.symbol,
-                balance: item.stake / realtimeSymbol.c,
-                limit: item.profit / realtimeSymbol.c,
+            if (realtimeSymbol) {
+                return {
+                    symbol: item.symbol,
+                    balance: item.stake / realtimeSymbol.c,
+                    limit: item.profit / realtimeSymbol.c,
+                }
             }
         })
     }
