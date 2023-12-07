@@ -6,48 +6,48 @@
           <div class="cursor-pointer" @click="buy = false" :class="!buy ? ' text-yellow-500' : ''">
             Sell
           </div>
-          <!-- <div class="cursor-pointer text-gray-300">
-            Buy
-          </div> -->
         </div>
 
         <div v-if="wallets.length <= 0" class=" text-xs text-red-600  text-center">You do not have an active asset, please
           buy one in
           Market A.</div>
-        <label for="" class="text-xs">Symbol</label>
-        <!-- {{ wallets }} -->
-        <div>
-          <USelect id="symbol" :options="wallets" option-attribute="symbol" value-attribute="symbol"
-            v-model="form.symbol" />
-          <!-- <div class="flex flex-col"> -->
-          <div v-if="formErrors.symbol" class="text-[10px] text-red-600">
-            <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
-          </div>
-        </div>
-        <div v-if="selectedSymbolRealTimeData">
-          <label v-text="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
-            class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
-          </label>
-          <UInput v-model="form.amount" autocomplete="off" :ui="{ icon: { trailing: { pointer: '' } } }"
-            :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
-            :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
-            :errors="formErrors.amount">
-            <template #trailing>
-              <UButton :color="'yellow'" variant="link"
-                @click=" form.amount = selectedSymbolData.profit / selectedSymbolRealTimeData.c" :padded="false"
-                label="ALL">
-              </UButton>
-            </template>
-          </UInput>
-          <div v-if="formErrors.amount" class="text-[10px] text-red-600">
-            <div v-for="(error, index) in formErrors.amount" v-text="error" :key="index"></div>
-          </div>
-        </div>
+        <div v-else>
 
-        <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
-          v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
-        <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')" @buy="submitForm()"
-          :settings="stakeButtonsConfigs"></SharedStakeButtons>
+          <label for="" class="text-xs">Symbol</label>
+          <!-- {{ wallets }} -->
+          <div>
+            <USelect id="symbol" :options="wallets" option-attribute="symbol" value-attribute="symbol"
+              v-model="form.symbol" />
+            <!-- <div class="flex flex-col"> -->
+            <div v-if="formErrors.symbol" class="text-[10px] text-red-600">
+              <div v-for="(error, index) in formErrors.symbol" v-text="error" :key="index"></div>
+            </div>
+          </div>
+          <div v-if="selectedSymbolRealTimeData">
+            <label v-text="`Amount to sell in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+              class="first-letter:capitalize text-[11px] text-gray-300" :for="id">
+            </label>
+            <UInput v-model="form.amount" autocomplete="off" :ui="{ icon: { trailing: { pointer: '' } } }"
+              :placeholder="`Enter amount in ${selectedSymbolData.symbol.replace('USDT', '')}`"
+              :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
+              :errors="formErrors.amount">
+              <template #trailing>
+                <UButton :color="'yellow'" variant="link"
+                  @click=" form.amount = selectedSymbolData.profit / selectedSymbolRealTimeData.c" :padded="false"
+                  label="ALL">
+                </UButton>
+              </template>
+            </UInput>
+            <div v-if="formErrors.amount" class="text-[10px] text-red-600">
+              <div v-for="(error, index) in formErrors.amount" v-text="error" :key="index"></div>
+            </div>
+          </div>
+
+          <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
+            v-if="selectedSymbolRealTimeData" readonly="true"></SharedTextInput>
+          <SharedStakeButtons class="pt-2" @stake="activateStake()" @cancel="emit('cancel')" @buy="submitForm()"
+            :settings="stakeButtonsConfigs"></SharedStakeButtons>
+        </div>
       </div>
     </div>
   </SharedContainer>
