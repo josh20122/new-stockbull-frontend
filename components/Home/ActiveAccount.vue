@@ -23,7 +23,7 @@
 <script setup>
 import axios from "axios";
 import { setAxiosConfigurations } from "~/.utils/axiosConfigurations";
-import { setStockbullBotDetails } from "~/.utils/utilities";
+import { setStockbullBotDetails, setStockbullProfits } from "~/.utils/utilities";
 
 const accounts = useStockbullAccounts();
 const activeAccount = useActiveAccount();
@@ -33,6 +33,7 @@ const changeActiveAccount = (item) => {
   activeAccount.value = item;
   setAxiosConfigurations();
   setStockbullBotDetails()
+  setStockbullProfits()
 };
 
 onMounted(() => {
