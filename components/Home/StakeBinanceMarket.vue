@@ -10,8 +10,8 @@
           </div>
         </div>
         <!-- {{ symbols.length }} -->
-        <SharedTextInput label="Amount to buy" v-model="form.amount" placeholder="Enter amount" hint="USD"
-          :errors="formErrors.amount">
+        <SharedTextInput :label="`Amount in ${form.symbol.replace('USDT', '')}`" v-model="form.amount"
+          placeholder="Enter amount" hint="USD" :errors="formErrors.amount">
         </SharedTextInput>
 
         <SharedTextInput label="You will get" placeholder="" :model-value="form.amountInCrypto" readonly="true">
@@ -435,7 +435,7 @@ const submitForm = () => {
 
 watch([() => form.value.symbol, () => form.value.amount], () => {
   // console.log(symbolPrice.value)
-  if (!selectedSymbolData.value) {
+  if (selectedSymbolData.value) {
 
     let crypto = selectedSymbolData.value.s.replace('USDT', '');
     form.value.amountInCrypto = form.value.amount / selectedSymbolData.value.c + crypto
