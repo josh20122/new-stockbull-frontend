@@ -10,7 +10,7 @@
                 </div>
                 <div class=" inline-flex flex-col">
                     <div>B: {{ item.balance }}BTC</div>
-                    <div>L: {{ item.balance }}BTC</div>
+                    <div>L: {{ item.limit }}BTC</div>
                 </div>
             </div>
         </div>
