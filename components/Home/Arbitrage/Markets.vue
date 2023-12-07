@@ -152,7 +152,7 @@ const setActiveKey = (key, item) => {
   activeKey.value = key;
   activeSymbolData.value = item;
   tradingViewSymbol.value = item.symbol;
-  props.showModal = false;
+  modalIsOpen.value = false;
 };
 
 const search = ref("");
@@ -529,12 +529,16 @@ const setScreenHeight = () => {
   screenHeight.value = window.screen.height;
 };
 
+
+
 const menuSymbols = computed(() => {
   const filteredSymbols = symbols.data.filter((item) =>
     allowedSymbols.includes(item.s)
   );
 
-  allSymbols.value = filteredSymbols
+
+
+  return filteredSymbols
     .map((item) => {
       return {
         symbol: item.s,
@@ -559,7 +563,6 @@ const menuSymbols = computed(() => {
       return 0;
     });
 
-  return allSymbols.value;
 });
 
 onMounted(() => {
@@ -575,11 +578,18 @@ onMounted(() => {
     socketData.forEach((element) => {
       const index = symbols.data.findIndex((obj) => obj.s === element.s);
 
-      if (index !== -1) {
-        symbols.data[index] = element;
-      } else {
-        symbols.data.push(element);
+      if (element.s.includes('USDT')) {
+
+        if (index !== -1) {
+          symbols.data[index] = element;
+          allSymbols.value = symbols.data
+
+        } else {
+          symbols.data.push(element);
+          allSymbols.value = symbols.data
+        }
       }
+
     });
   };
 });

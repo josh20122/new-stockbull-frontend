@@ -1,11 +1,7 @@
 <template>
   <SharedContainer class="w-full h-full" :padding="false">
     <ClientOnly>
-      <Chart
-        class="h-full w-full bg-transparent"
-        :options="chartOptions"
-        v-if="renderComponent"
-      />
+      <Chart class="h-full w-full bg-transparent" :options="chartOptions" v-if="renderComponent" />
     </ClientOnly>
     <!-- <div class="text-xl mb-10 text-right">{{ symbol }}</div> -->
   </SharedContainer>
@@ -21,7 +17,6 @@ const renderComponent = ref(true);
 
 const forceRender = async () => {
   renderComponent.value = false;
-
   await nextTick();
   renderComponent.value = true;
 };
@@ -29,7 +24,7 @@ const forceRender = async () => {
 const chartOptions = ref({
   autosize: true,
   symbol: "BINANCE:" + symbol.value,
-  interval: "D",
+  interval: "1",
   timezone: "Africa/Nairobi",
   theme: "dark",
   style: "1",
