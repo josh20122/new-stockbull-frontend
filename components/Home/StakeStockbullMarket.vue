@@ -33,15 +33,15 @@
             :hint="`LIMIT: ${selectedSymbolData.profit / selectedSymbolRealTimeData.c + selectedSymbolData.symbol.replace('USDT', '')}`"
             :errors="formErrors.amount">
             <template #trailing>
-              <!-- <div class=" " @click="console.log('djkdklkn')">
-                ALL
-              </div> -->
               <UButton :color="'yellow'" variant="link"
                 @click=" form.amount = selectedSymbolData.profit / selectedSymbolRealTimeData.c" :padded="false"
                 label="ALL">
               </UButton>
             </template>
           </UInput>
+          <div v-if="formErrors.amount" class="text-[10px] text-red-600">
+            <div v-for="(error, index) in formErrors.amount" v-text="error" :key="index"></div>
+          </div>
         </div>
 
         <SharedTextInput label="You will get" placeholder="Enter your stake amount" :model-value="totalAmount"
