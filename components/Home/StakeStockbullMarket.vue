@@ -96,7 +96,7 @@ const totalAmount = computed(() => {
 });
 
 const submitForm = () => {
-  axios.post('/sell-arbitrage').then(response => {
+  axios.post('/sell-arbitrage', form.value).then(response => {
     toast.add({ title: 'Success' });
     emit('cancel');
   }).catch(err => {
