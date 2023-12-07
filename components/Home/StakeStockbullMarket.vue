@@ -15,7 +15,7 @@
           buy one in
           Market A.</div>
         <label for="" class="text-xs">Symbol</label>
-        {{ wallets }}
+        <!-- {{ wallets }} -->
         <div>
           <USelect id="symbol" :options="wallets" option-attribute="symbol" value-attribute="symbol"
             v-model="form.symbol" />
