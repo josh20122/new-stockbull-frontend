@@ -10,8 +10,8 @@
                     {{ index + 1 }}. {{ item.symbol }}
                 </div>
                 <div class=" inline-flex flex-col">
-                    <div>B: {{ item.balance }}BTC</div>
-                    <div>L: {{ item.limit }}BTC</div>
+                    <div>B: {{ item.balance }}</div>
+                    <div>L: {{ item.limit }}</div>
                 </div>
             </div>
         </div>
@@ -32,8 +32,8 @@ const items = computed(() => {
             // if (realtimeSymbol) {
             return {
                 symbol: item.symbol,
-                balance: item.stake / realtimeSymbol.c,
-                limit: item.profit / realtimeSymbol.c,
+                balance: item.stake / realtimeSymbol.c + item.symbol.replace('USDT', ''),
+                limit: item.profit / realtimeSymbol.c + item.symbol.replace('USDT', ''),
             }
             // }
         })
