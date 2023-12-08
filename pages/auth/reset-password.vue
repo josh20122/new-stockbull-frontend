@@ -39,6 +39,7 @@
       </div> -->
     </SharedContainer>
   </div>
+  <SharedSocials></SharedSocials>
 </template>
 <script setup>
 import axios from 'axios';
